@@ -1,12 +1,14 @@
 package org.group6.fastservices.data.repositories;
 
+import lombok.RequiredArgsConstructor;
 import org.group6.fastservices.data.models.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
 
-
+@Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, String> {
     List<Appointment> findByUserId(String userId);
     List<Appointment> findByOfferingId(String offeringId);
