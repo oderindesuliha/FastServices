@@ -1,8 +1,6 @@
 TRUNCATE TABLE users CASCADE;
 TRUNCATE TABLE customers CASCADE;
 TRUNCATE TABLE admins CASCADE;
-TRUNCATE TABLE user_roles CASCADE;
-
 
 INSERT INTO users(id, first_name, last_name, email, password, phone, roles, created_at, updated_at)
 VALUES('ADMIN001', 'Chinedu', 'Okonkwo', 'chinedu.okonkwo@gmail.com', 'hashed_password', '07012345678', 'ADMIN', NOW(), NOW()),
@@ -18,10 +16,6 @@ INSERT INTO customers(id, contact, address, gender)
 VALUES('CUSTOMER001', '08012345678', '12 Allen Avenue', 'Female'),
       ('CUSTOMER002', '09012345678', '18 Vaughan street', 'Male');
 
-INSERT INTO user_roles(user_id, role)
-VALUES('ADMIN001', 'ADMIN'),
-      ('CUSTOMER001', 'CUSTOMER'),
-      ('CUSTOMER002', 'CUSTOMER');
 
 
 
