@@ -1,7 +1,35 @@
-insert into users (id, first_name, last_name, email, password, phone, roles) values
-    ('12345', 'Chinedu', 'Okonkwo', 'chinedu.okonkwo@gmail.com', '$2a$10$wHjp1ZW9O6YYyuCcS2uFmOwvDLj5f4.3.G3D3TJrPLbFi8y5VG5aG', '08012345678', 'CUSTOMER'),
-    ('12346', 'Adunni', 'Alao', 'adunni.alao@gmail.com', '$2a$10$wHjp1ZW9O6YYyuCcS2uFmOwvDLj5f4.3.G3D3TJrPLbFi8y5VG5aG', '08098765432', 'CUSTOMER'),
-    ('12347', 'Emeka', 'Eze', 'emeka.eze@company.com', '$2a$10$wHjp1ZW9O6YYyuCcS2uFmOwvDLj5f4.3.G3D3TJrPLbFi8y5VG5aG', '08056565656', 'ORGANIZATION');
+TRUNCATE TABLE users CASCADE;
+TRUNCATE TABLE customers CASCADE;
+TRUNCATE TABLE admins CASCADE;
+TRUNCATE TABLE user_roles CASCADE;
+
+
+INSERT INTO users(id, first_name, last_name, email, password, phone, roles, created_at, updated_at)
+VALUES('ADMIN001', 'Chinedu', 'Okonkwo', 'chinedu.okonkwo@gmail.com', 'hashed_password', '07012345678', 'ADMIN', NOW(), NOW()),
+      ('CUSTOMER001', 'Adunni', 'Alao', 'adunni.alao@gmail.com', 'hashed_password', '08012345678', 'CUSTOMER', NOW(), NOW()),
+      ('CUSTOMER002', 'Emeka', 'Eze', 'emeka.eze@company.com', 'hashed_password', '09012345678', 'CUSTOMER', NOW(), NOW());
+
+
+INSERT INTO admins(id, admin_level, department)
+VALUES('ADMIN001', 'Super Admin', 'Operations');
+
+
+INSERT INTO customers(id, contact, address, gender)
+VALUES('CUSTOMER001', '08012345678', '12 Allen Avenue', 'Female'),
+      ('CUSTOMER002', '09012345678', '18 Vaughan street', 'Male');
+
+INSERT INTO user_roles(user_id, role)
+VALUES('ADMIN001', 'ADMIN'),
+      ('CUSTOMER001', 'CUSTOMER'),
+      ('CUSTOMER002', 'CUSTOMER');
+
+
+
+
+
+
+
+
 
 insert into organizations (id, name, code, address, contact_email, contact_phone, verified, created_at) values
     ('org123', 'Oluwaloni Services Ltd', 'OSL001', '156 Awolowo Way, Ikoyi, Lagos', 'info@oluwaloniservices.com', '0123456789', true, CURRENT_TIMESTAMP),
