@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("USER")
-
 public class User implements UserDetails {
   @Id
    @GeneratedValue(strategy = GenerationType.UUID)
@@ -106,18 +105,18 @@ public boolean isAccountNonLocked() {
        }
        this.roles = rolesBuilder.toString();
     }
-   
+
    // Helper method to set roles directly as string
    public void setRoles(String roles) {
        this.roles = roles;
    }
-   
+
    // Helper method to get roles as Set
    public Set<Role> getRolesAsSet() {
        if (roles == null || roles.isEmpty()) {
            return new HashSet<>();
        }
-       
+
        Set<Role> roleSet = new HashSet<>();
        String[] roleArray = roles.split(",");
        for (String role : roleArray) {
