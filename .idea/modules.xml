@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/FastServices.iml" filepath="$PROJECT_DIR$/.idea/FastServices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FastServices/FastServices.iml" filepath="$PROJECT_DIR$/FastServices/FastServices.iml" />
     </modules>
   </component>
 </project>
