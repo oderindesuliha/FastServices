@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("USER")
 public class User implements UserDetails {
   @Id
    @GeneratedValue(strategy = GenerationType.UUID)
