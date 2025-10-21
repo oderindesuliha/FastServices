@@ -33,6 +33,4 @@ class UserRepositoryTest {
         boolean exists = userRepository.existsByEmail("adunni.alao@gmail.com");
         assertTrue(exists);
     }
-
-
 }
