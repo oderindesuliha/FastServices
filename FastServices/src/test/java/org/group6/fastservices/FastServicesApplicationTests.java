@@ -4,16 +4,21 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class FastServicesApplicationTests {
 
     @Value("${TEST_DB_PASSWORD}")
-    private String password;
+    private String testDbPassword;
+
+    @Value("${TEST_DB_URL}")
+    private String testDbUrl;
 
     @Test
     void contextLoads() {
@@ -22,16 +27,14 @@ class FastServicesApplicationTests {
     @Test
     void testCanConnectToDatabase() {
         try (HikariDataSource dataSource = new HikariDataSource()) {
-            dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/fastservice");
+            dataSource.setJdbcUrl(testDbUrl);
             dataSource.setUsername("postgres");
-            dataSource.setPassword(password);
+            dataSource.setPassword(testDbPassword);
 
             Connection connection = dataSource.getConnection();
             assertNotNull(connection);
         } catch(Exception e) {
             assertNotNull(e);
         }
-
     }
-
 }
