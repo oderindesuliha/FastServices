@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Data
 @Entity
 @Table(name = "users")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("USER")
 public class User implements UserDetails {
