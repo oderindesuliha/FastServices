@@ -10,6 +10,8 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @ActiveProfiles("test")
 @Sql("/db/data.sql")
@@ -20,6 +22,9 @@ public class CustomerRepositoryTest {
 
     @Test
     void testCanFindByEmail() {
-        Optional<Customer> foundCustomer = customerRepository.findByEmail()
+        Optional<Customer> foundCustomer = customerRepository.findCustomerByEmail("adunni.alao@gmail.com");
+        boolean isCustomer = foundCustomer.get().getRoles().toLowerCase().contains("customer");
+        assertTrue(isCustomer);
+        assertEquals("Adunni", foundCustomer.get().getFirstName());
     }
 }
