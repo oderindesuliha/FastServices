@@ -2,10 +2,10 @@ TRUNCATE TABLE users CASCADE;
 TRUNCATE TABLE customers CASCADE;
 TRUNCATE TABLE admins CASCADE;
 
-INSERT INTO users(id, first_name, last_name, email, password, phone, roles, created_at, updated_at)
-VALUES('ADMIN001', 'Chinedu', 'Okonkwo', 'chinedu.okonkwo@gmail.com', 'hashed_password', '07012345678', 'ADMIN', NOW(), NOW()),
-      ('CUSTOMER001', 'Adunni', 'Alao', 'adunni.alao@gmail.com', 'hashed_password', '08012345678', 'CUSTOMER', NOW(), NOW()),
-      ('CUSTOMER002', 'Emeka', 'Eze', 'emeka.eze@company.com', 'hashed_password', '09012345678', 'CUSTOMER', NOW(), NOW());
+INSERT INTO users(id, first_name, last_name, email, password, phone, roles, created_at, updated_at, dtype)
+VALUES('ADMIN001', 'Chinedu', 'Okonkwo', 'chinedu.okonkwo@gmail.com', 'hashed_password', '07012345678', 'ADMIN', NOW(), NOW(), 'Admin'),
+      ('CUSTOMER001', 'Adunni', 'Alao', 'adunni.alao@gmail.com', 'hashed_password', '08012345678', 'CUSTOMER', NOW(), NOW(), 'Customer'),
+      ('CUSTOMER002', 'Emeka', 'Eze', 'emeka.eze@company.com', 'hashed_password', '09012345678', 'CUSTOMER', NOW(), NOW(), 'Customer');
 
 
 INSERT INTO admins(id, admin_level, department)
