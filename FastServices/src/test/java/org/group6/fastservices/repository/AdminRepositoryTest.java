@@ -21,7 +21,6 @@ public class AdminRepositoryTest {
     private AdminRepository adminRepository;
 
     @Test
-
     void testFindByEmail() {
         Optional<Admin> foundAdmin = adminRepository.findAdminByEmail("chinedu.okonkwo@gmail.com");
         boolean isAdmin = foundAdmin.get().getRoles().toLowerCase().contains("admin");
