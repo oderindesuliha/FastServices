@@ -1,13 +1,12 @@
 package org.group6.fastservices.dtos.responses;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class JwtAuthResponse {
     private String accessToken;
     private String tokenType = "Bearer";
-    
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
+
 }

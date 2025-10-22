@@ -1,5 +1,7 @@
 package org.group6.fastservices.services.impl;
 
+import org.group6.fastservices.data.models.Admin;
+import org.group6.fastservices.data.models.User;
 import org.group6.fastservices.data.repositories.AdminRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.data.repositories.UserRepository;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
+
 @SpringBootTest
 class AuthServiceImplTest {
 
@@ -43,8 +47,13 @@ class AuthServiceImplTest {
     void testCanRegisterUser() {
         RegisterUserResponse customerRegisterResponse = registerCustomer();
         assertTrue(customerRegisterResponse.isSuccess());
+        Optional<User> savedCustomer = userRepository.findByEmail("bramtechxxvi@gmail.com");
+        assertEquals("Bram", savedCustomer.get().getEmail());
+
         RegisterUserResponse adminRegisterResponse = registerAdmin();
         assertTrue(adminRegisterResponse.isSuccess());
+        Optional<Admin> savedAdmin = adminRepository.findAdminByEmail("niceibrahim01@gmail.com");
+        assertEquals("Ola", savedAdmin.get().getFirstName());
     }
 
     @Test
