@@ -2,6 +2,7 @@ package org.group6.fastservices.services.impl;
 
 import lombok.AllArgsConstructor;
 import org.group6.fastservices.services.EmailService;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
+    private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
     private final JavaMailSender mailSender;
 
     @Override
-    public void sendRegistrationEmail(String to, String subject, String body) {
+    public void sendRegistrationEmail(String to, String name) {
         if (mailSender == null) {
             logger.warn("Email service not configured. Skipping email to: {}", to);
             return;
