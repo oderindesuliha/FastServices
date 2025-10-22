@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 class FastServicesApplicationTests {
 
-    @Value("${TEST_DB_PASSWORD}")
+    @Value("${DB_PASSWORD}")
     private String testDbPassword;
 
-    @Value("${TEST_DB_URL}")
+    @Value("${DB_URL}")
     private String testDbUrl;
 
     @Test

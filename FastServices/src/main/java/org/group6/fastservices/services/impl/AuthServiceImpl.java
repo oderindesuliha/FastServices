@@ -57,7 +57,6 @@ public class AuthServiceImpl implements AuthService {
         return new RegisterUserResponse("Registered successfully", true);
     }
 
-
     @Override
     public LoginUserResponse login(LoginUserRequest request) {
         return null;
@@ -79,5 +78,4 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidRoleException("Invalid role specified: " + role);
         }
     }
-
 }
