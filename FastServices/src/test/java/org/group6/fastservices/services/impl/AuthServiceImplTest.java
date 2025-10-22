@@ -1,5 +1,6 @@
 package org.group6.fastservices.services.impl;
 
+import jakarta.mail.internet.MimeMessage;
 import org.group6.fastservices.data.models.Admin;
 import org.group6.fastservices.data.models.User;
 import org.group6.fastservices.data.repositories.AdminRepository;
@@ -14,8 +15,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+
 import java.util.Optional;
 
 @SpringBootTest
@@ -29,6 +36,8 @@ class AuthServiceImplTest {
     private AdminRepository adminRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @MockitoBean
+    JavaMailSender javaMailSender;
 
     @BeforeEach
     void setUp() {
@@ -41,6 +50,7 @@ class AuthServiceImplTest {
         userRepository.deleteAll();
         customerRepository.deleteAll();
         adminRepository.deleteAll();
+        doNothing().when(javaMailSender).send(any(MimeMessage.class));
     }
 
     @Test
@@ -48,22 +58,25 @@ class AuthServiceImplTest {
         RegisterUserResponse customerRegisterResponse = registerCustomer();
         assertTrue(customerRegisterResponse.isSuccess());
         Optional<User> savedCustomer = userRepository.findByEmail("bramtechxxvi@gmail.com");
-        assertEquals("Bram", savedCustomer.get().getEmail());
+        assertTrue(savedCustomer.isPresent());
+        assertEquals("Bram", savedCustomer.get().getFirstName());
 
         RegisterUserResponse adminRegisterResponse = registerAdmin();
         assertTrue(adminRegisterResponse.isSuccess());
         Optional<Admin> savedAdmin = adminRepository.findAdminByEmail("niceibrahim01@gmail.com");
+        assertTrue(savedAdmin.isPresent());
         assertEquals("Ola", savedAdmin.get().getFirstName());
     }
 
     @Test
     void testCanLoginUser() {
-        registerAdmin();
         registerCustomer();
         LoginUserRequest loginCustomerReq = new LoginUserRequest();
+        loginCustomerReq.setEmail("bramtechxxvi@gmail.com");
+        loginCustomerReq.setPassword("password");
+
         LoginUserResponse loginCustomerResp = authService.login(loginCustomerReq);
         assertTrue(loginCustomerResp.isSuccess());
-
     }
 
     private RegisterUserResponse registerCustomer() {

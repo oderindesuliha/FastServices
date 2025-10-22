@@ -17,32 +17,3 @@ public class UserResponse {
     private LocalDateTime updatedAt;
 }
 
-
-@Override
-public LoginUserResponse login(LoginUserRequest request) {
-    // 1️⃣ Authenticate user credentials
-    Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                    request.getEmail(),
-                    request.getPassword()
-            )
-    );
-
-    // 2️⃣ Set authentication context (optional but good practice)
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-
-    // 3️⃣ Generate JWT token
-    String token = jwtTokenProvider.generateToken(authentication);
-
-    // 4️⃣ Retrieve authenticated user
-    User user = userRepository.findByEmail(request.getEmail())
-            .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + request.getEmail()));
-
-    // 5️⃣ Return response DTO
-    return new LoginUserResponse(
-            "Login successful",
-            token,
-            user.getEmail(),
-            user.getRoles()
-    );
-}
