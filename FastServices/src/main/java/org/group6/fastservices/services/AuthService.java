@@ -8,5 +8,8 @@ import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 public interface AuthService {
 
     RegisterUserResponse register(RegisterUserRequest request);
+
     LoginUserResponse login(LoginUserRequest request);
 }
+
+

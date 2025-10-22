@@ -38,25 +38,30 @@ public class AuthServiceImpl implements AuthService {
         verifyNewEmail(request.getEmail());
         verifyNewPhone(request.getPhone());
         Role userRole = parseUserRole(request.getRole());
-        User user = modelMapper.map(request, User.class);
+
+        User user = switch(userRole){
+            case ADMIN -> modelMapper.map(request, Admin.class);
+            case CUSTOMER -> modelMapper.map(request, Customer.class);
+            default -> throw new InvalidRoleException("Invalid role");
+        };
 
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
         user.setRoles(userRole.name());
 
-        User savedUser = userRepository.save(user);
-        switch (userRole){
-            case ADMIN -> {
-                Admin admin = modelMapper.map(savedUser, Admin.class);
-                adminRepository.save(admin);
-            }
-            case CUSTOMER -> {
-                Customer customer = modelMapper.map(savedUser, Customer.class);
-                customerRepository.save(customer);
-            }
+        switch(userRole) {
+            case ADMIN -> adminRepository.save((Admin) user);
+            case CUSTOMER -> customerRepository.save((Customer) user);
         }
-        emailService.sendRegistrationEmail(savedUser.getEmail(), savedUser.getFirstName());
+
+        if(user instanceof Admin) {
+            adminRepository.save((Admin) user);
+        } else {
+            customerRepository.save((Customer ) user);
+        }
+
+        emailService.sendRegistrationEmail(user.getEmail(), user.getFirstName());
         return new RegisterUserResponse("Registered successfully", true);
     }
 
@@ -66,7 +71,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void verifyNewEmail(String email) {
-        if (userRepository.existsByEmail(email)) throw new DetailsAlreadyInUseException("Email belongs to an existing account");
+        if (userRepository.existsByEmail(email))
+            throw new DetailsAlreadyInUseException("Email belongs to an existing account");
     }
 
     private void verifyNewPhone(String phone) {

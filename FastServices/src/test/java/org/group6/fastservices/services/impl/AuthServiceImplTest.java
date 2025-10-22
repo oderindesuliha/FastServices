@@ -39,33 +39,39 @@ class AuthServiceImplTest {
 
     @Test
     void testCanRegisterUser() {
-        registerAdmin();
-        assertEquals(response);
+        RegisterUserResponse customerRegisterResponse = registerCustomer();
+        assertTrue(customerRegisterResponse.isSuccess());
+        RegisterUserResponse adminRegisterResponse = registerAdmin();
+        assertTrue(adminRegisterResponse.isSuccess());
     }
 
-    private void registerCustomer() {
-    RegisterUserRequest registerRequest = new RegisterUserRequest();
-    registerRequest.setFirstName("Bram");
-    registerRequest.setLastName("Dell");
-    registerRequest.setEmail("bramtechxxvi@gmail.com");
-    registerRequest.setPassword("password");
-    registerRequest.setPhone("08012345678");
-    registerRequest.setRole("customer");
+    @Test
+    void testCanLoginUser() {
 
-    RegisterUserResponse response = authService.register(registerRequest);
-}
+    }
 
-private void registerAdmin() {
-    RegisterUserRequest registerRequest = new RegisterUserRequest();
-    registerRequest.setFirstName("Ola");
-    registerRequest.setLastName("Dell");
-    registerRequest.setEmail("niceibrahim01@gmail.com");
-    registerRequest.setPassword("password");
-    registerRequest.setPhone("08012345688");
-    registerRequest.setRole("admin");
+    private RegisterUserResponse registerCustomer() {
+        RegisterUserRequest registerRequest = new RegisterUserRequest();
+        registerRequest.setFirstName("Bram");
+        registerRequest.setLastName("Dell");
+        registerRequest.setEmail("bramtechxxvi@gmail.com");
+        registerRequest.setPassword("password");
+        registerRequest.setPhone("08012345678");
+        registerRequest.setRole("customer");
 
-    RegisterUserResponse response = authService.register(registerRequest);
+        return authService.register(registerRequest);
+    }
 
-}
+    private RegisterUserResponse registerAdmin() {
+        RegisterUserRequest registerRequest = new RegisterUserRequest();
+        registerRequest.setFirstName("Ola");
+        registerRequest.setLastName("Dell");
+        registerRequest.setEmail("niceibrahim01@gmail.com");
+        registerRequest.setPassword("password");
+        registerRequest.setPhone("08012345688");
+        registerRequest.setRole("admin");
+
+        return authService.register(registerRequest);
+    }
   
 }
