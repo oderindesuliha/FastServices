@@ -5,7 +5,7 @@ import org.group6.fastservices.data.models.User;
 import java.util.List;
 
 public interface UserService {
-    User createUser(User user);
+//    User createUser(User user);
 //    User getUserById(String id);
 //    User getUserByEmail(String email);
 //    List<User> getAllUsers();

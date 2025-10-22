@@ -3,9 +3,7 @@ package org.group6.fastservices.services.impl;
 import jakarta.mail.internet.MimeMessage;
 import org.group6.fastservices.data.models.Admin;
 import org.group6.fastservices.data.models.User;
-import org.group6.fastservices.data.repositories.AdminRepository;
-import org.group6.fastservices.data.repositories.CustomerRepository;
-import org.group6.fastservices.data.repositories.UserRepository;
+import org.group6.fastservices.data.repositories.*;
 import org.group6.fastservices.dtos.requests.LoginUserRequest;
 import org.group6.fastservices.dtos.requests.RegisterUserRequest;
 import org.group6.fastservices.dtos.responses.LoginUserResponse;
@@ -15,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -102,5 +99,4 @@ class AuthServiceImplTest {
 
         return authService.register(registerRequest);
     }
-  
 }
