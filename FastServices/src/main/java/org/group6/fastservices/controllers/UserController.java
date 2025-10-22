@@ -1,7 +1,7 @@
 package org.group6.fastservices.controllers;
 
 import org.group6.fastservices.data.models.User;
-import org.group6.fastservices.dtos.requests.UserRequest;
+import org.group6.fastservices.dtos.requests.RegisterUserRequest;
 import org.group6.fastservices.dtos.responses.ErrorResponse;
 import org.group6.fastservices.dtos.responses.UserResponse;
 import org.group6.fastservices.services.UserService;
@@ -30,7 +30,7 @@ public class  UserController {
     
     @PostMapping
 //    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<?> createUser(@RequestBody RegisterUserRequest userRequest) {
         try {
             User user = new User();
             BeanUtils.copyProperties(userRequest, user);
@@ -74,7 +74,7 @@ public class  UserController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
+    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody RegisterUserRequest userRequest) {
         try {
             User user = new User();
             BeanUtils.copyProperties(userRequest, user);

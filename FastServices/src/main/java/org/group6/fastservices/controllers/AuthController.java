@@ -1,7 +1,7 @@
 package org.group6.fastservices.controllers;
 
 import org.group6.fastservices.data.models.User;
-import org.group6.fastservices.dtos.requests.UserRequest;
+import org.group6.fastservices.dtos.requests.RegisterUserRequest;
 import org.group6.fastservices.dtos.responses.ErrorResponse;
 import org.group6.fastservices.dtos.responses.JwtAuthResponse;
 import org.group6.fastservices.dtos.responses.UserResponse;
@@ -67,7 +67,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<?> register(@RequestBody RegisterUserRequest userRequest) {
         try {
             if (userService.existsByEmail(userRequest.getEmail())) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
