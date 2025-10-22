@@ -1,5 +1,6 @@
 package org.group6.fastservices.services.impl;
 
+import lombok.AllArgsConstructor;
 import org.group6.fastservices.services.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +11,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class EmailServiceImpl implements EmailService {
-    
-    private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
-    
+
     private final JavaMailSender mailSender;
     
     @Autowired(required = false)
@@ -21,9 +21,8 @@ public class EmailServiceImpl implements EmailService {
         this.mailSender = mailSender;
     }
     
-    @Async
     @Override
-    public void sendEmail(String to, String subject, String body) {
+    public void sendRegistrationEmail(String to, String subject, String body) {
         if (mailSender == null) {
             logger.warn("Email service not configured. Skipping email to: {}", to);
             return;
