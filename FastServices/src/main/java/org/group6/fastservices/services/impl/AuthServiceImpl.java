@@ -6,6 +6,7 @@ import org.group6.fastservices.dtos.requests.LoginUserRequest;
 import org.group6.fastservices.dtos.requests.RegisterUserRequest;
 import org.group6.fastservices.dtos.responses.LoginUserResponse;
 import org.group6.fastservices.dtos.responses.RegisterUserResponse;
+import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.services.AuthService;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,9 @@ public class AuthServiceImpl implements AuthService {
 
     private void verifyNewEmail(String email) {
         if (userRepository.existsByEmail(email)) throw new DetailsAlreadyInUseException("Email belongs to an existing account");
+    }
+
+    private void verifyNewPhone(String phone) {
+        if (userRepository.e)
     }
 }
