@@ -3,7 +3,9 @@ package org.group6.fastservices.services.impl;
 import org.group6.fastservices.data.repositories.AdminRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.data.repositories.UserRepository;
+import org.group6.fastservices.dtos.requests.LoginUserRequest;
 import org.group6.fastservices.dtos.requests.RegisterUserRequest;
+import org.group6.fastservices.dtos.responses.LoginUserResponse;
 import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +51,9 @@ class AuthServiceImplTest {
     void testCanLoginUser() {
         registerAdmin();
         registerCustomer();
+        LoginUserRequest loginCustomerReq = new LoginUserRequest();
+        LoginUserResponse loginCustomerResp = authService.login(loginCustomerReq);
+
     }
 
     private RegisterUserResponse registerCustomer() {
