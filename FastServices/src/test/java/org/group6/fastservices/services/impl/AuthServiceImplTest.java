@@ -47,7 +47,8 @@ class AuthServiceImplTest {
 
     @Test
     void testCanLoginUser() {
-
+        registerAdmin();
+        registerCustomer();
     }
 
     private RegisterUserResponse registerCustomer() {
