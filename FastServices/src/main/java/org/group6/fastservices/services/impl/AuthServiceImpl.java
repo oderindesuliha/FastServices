@@ -12,9 +12,15 @@ import org.group6.fastservices.dtos.responses.LoginUserResponse;
 import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.exceptions.InvalidRoleException;
+import org.group6.fastservices.security.JwtTokenProvider;
 import org.group6.fastservices.services.AuthService;
 import org.group6.fastservices.services.EmailService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +35,8 @@ public class AuthServiceImpl implements AuthService {
     private final AdminRepository adminRepository;
     private final CustomerRepository customerRepository;
     private final EmailService emailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
 
     @Override
@@ -65,8 +73,17 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginUserResponse login(LoginUserRequest request) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return null;
+        String token = jwtTokenProvider.generateToken(authentication);
+
+        User = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+
+        return new LoginUserResponse()
     }
 
     private void verifyNewEmail(String email) {
