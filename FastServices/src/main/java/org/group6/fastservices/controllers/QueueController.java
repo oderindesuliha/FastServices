@@ -20,108 +20,108 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/queues")
 @CrossOrigin(origins = "*")
 public class QueueController {
-    
-    @Autowired
-    private QueueService queueService;
-    
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createQueue(@RequestBody QueueRequest queueRequest) {
-        try {
-            Queue queue = new Queue();
-            BeanUtils.copyProperties(queueRequest,queue);
-            Queue savedQueue = queueService.createQueue(queue);
-            
-            QueueResponse queueResponse = Mapper.mapToQueueResponse(savedQueue);
-            return ResponseEntity.status(HttpStatus.CREATED).body(queueResponse);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-}
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getQueueById(@PathVariable String id) {
-        try {
-            Queue queue = queueService.getQueueById(id);
-            QueueResponse queueResponse = Mapper.mapToQueueResponse(queue);
-            return ResponseEntity.ok(queueResponse);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
-    
-    @GetMapping
-    public ResponseEntity<?> getAllQueues() {
-        try {
-            List<Queue> queues = queueService.getAllQueues();
-            List<QueueResponse> queueResponses = queues.stream()
-                    .map(Mapper::mapToQueueResponse)
-                    .collect(Collectors.toList());
-            
-            return ResponseEntity.ok(queueResponses);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
-    
-    @GetMapping("/organization/{organizationId}")
-    public ResponseEntity<?> getQueuesByOrganizationId(@PathVariable String organizationId) {
-        try {
-            List<Queue> queues = queueService.getQueuesByOrganizationId(organizationId);
-            List<QueueResponse> queueResponses = queues.stream()
-                    .map(Mapper::mapToQueueResponse)
-                    .collect(Collectors.toList());
-            
-            return ResponseEntity.ok(queueResponses);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-       }
-    }
-    
-    @GetMapping("/offering/{offeringId}")
-    public ResponseEntity<?> getQueuesByOfferingId(@PathVariable String offeringId) {
-        try {
-            List<Queue> queues = queueService.getQueuesByOfferingId(offeringId);
-            List<QueueResponse> queueResponses = queues.stream()
-                    .map(Mapper::mapToQueueResponse)
-                    .collect(Collectors.toList());
-            
-            return ResponseEntity.ok(queueResponses);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-       }
-    }
-    
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> updateQueue(@PathVariable String id, @RequestBody QueueRequest queueRequest) {
-        try {
-            Queue queue = new Queue();
-            BeanUtils.copyProperties(queueRequest, queue);
-            Queue updatedQueue = queueService.updateQueue(id, queue);
-            
-            QueueResponse queueResponse = Mapper.mapToQueueResponse(updatedQueue);
-            return ResponseEntity.ok(queueResponse);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
-    
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteQueue(@PathVariable String id) {
-        try {
-            queueService.deleteQueue(id);
-          return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
+//
+//    @Autowired
+//    private QueueService queueService;
+//
+//    @PostMapping
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> createQueue(@RequestBody QueueRequest queueRequest) {
+//        try {
+//            Queue queue = new Queue();
+//            BeanUtils.copyProperties(queueRequest,queue);
+//            Queue savedQueue = queueService.createQueue(queue);
+//
+//            QueueResponse queueResponse = Mapper.mapToQueueResponse(savedQueue);
+//            return ResponseEntity.status(HttpStatus.CREATED).body(queueResponse);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//}
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<?> getQueueById(@PathVariable String id) {
+//        try {
+//            Queue queue = queueService.getQueueById(id);
+//            QueueResponse queueResponse = Mapper.mapToQueueResponse(queue);
+//            return ResponseEntity.ok(queueResponse);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
+//
+//    @GetMapping
+//    public ResponseEntity<?> getAllQueues() {
+//        try {
+//            List<Queue> queues = queueService.getAllQueues();
+//            List<QueueResponse> queueResponses = queues.stream()
+//                    .map(Mapper::mapToQueueResponse)
+//                    .collect(Collectors.toList());
+//
+//            return ResponseEntity.ok(queueResponses);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
+//
+//    @GetMapping("/organization/{organizationId}")
+//    public ResponseEntity<?> getQueuesByOrganizationId(@PathVariable String organizationId) {
+//        try {
+//            List<Queue> queues = queueService.getQueuesByOrganizationId(organizationId);
+//            List<QueueResponse> queueResponses = queues.stream()
+//                    .map(Mapper::mapToQueueResponse)
+//                    .collect(Collectors.toList());
+//
+//            return ResponseEntity.ok(queueResponses);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//       }
+//    }
+//
+//    @GetMapping("/offering/{offeringId}")
+//    public ResponseEntity<?> getQueuesByOfferingId(@PathVariable String offeringId) {
+//        try {
+//            List<Queue> queues = queueService.getQueuesByOfferingId(offeringId);
+//            List<QueueResponse> queueResponses = queues.stream()
+//                    .map(Mapper::mapToQueueResponse)
+//                    .collect(Collectors.toList());
+//
+//            return ResponseEntity.ok(queueResponses);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//       }
+//    }
+//
+//    @PutMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> updateQueue(@PathVariable String id, @RequestBody QueueRequest queueRequest) {
+//        try {
+//            Queue queue = new Queue();
+//            BeanUtils.copyProperties(queueRequest, queue);
+//            Queue updatedQueue = queueService.updateQueue(id, queue);
+//
+//            QueueResponse queueResponse = Mapper.mapToQueueResponse(updatedQueue);
+//            return ResponseEntity.ok(queueResponse);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> deleteQueue(@PathVariable String id) {
+//        try {
+//            queueService.deleteQueue(id);
+//          return ResponseEntity.noContent().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
 }

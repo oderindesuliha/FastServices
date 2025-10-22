@@ -22,96 +22,96 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 public class  UserController {
     
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    @PostMapping
+//    @Autowired
+//    private UserService userService;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+//
+//    @PostMapping
+////    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> createUser(@RequestBody RegisterUserRequest userRequest) {
+//        try {
+//            User user = new User();
+//            BeanUtils.copyProperties(userRequest, user);
+//            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+//            User savedUser = userService.createUser(user);
+//
+//            UserResponse userResponse = Mapper.mapToUserResponse(savedUser);
+//            return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<?> getUserById(@PathVariable String id) {
+//        try {
+//            User user = userService.getUserById(id);
+//            UserResponse userResponse = Mapper.mapToUserResponse(user);
+//            return ResponseEntity.ok(userResponse);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
+//
+//    @GetMapping
 //    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createUser(@RequestBody RegisterUserRequest userRequest) {
-        try {
-            User user = new User();
-            BeanUtils.copyProperties(userRequest, user);
-            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-            User savedUser = userService.createUser(user);
-            
-            UserResponse userResponse = Mapper.mapToUserResponse(savedUser);
-            return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable String id) {
-        try {
-            User user = userService.getUserById(id);
-            UserResponse userResponse = Mapper.mapToUserResponse(user);
-            return ResponseEntity.ok(userResponse);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
-    
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> getAllUsers() {
-        try {
-            List<User> users = userService.getAllUsers();
-            List<UserResponse> userResponses = users.stream()
-                    .map(Mapper::mapToUserResponse)
-                    .collect(Collectors.toList());
-            
-            return ResponseEntity.ok(userResponses);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
-    
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody RegisterUserRequest userRequest) {
-        try {
-            User user = new User();
-            BeanUtils.copyProperties(userRequest, user);
-            if (userRequest.getPassword() != null && !userRequest.getPassword().isEmpty()) {
-                user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-            }
-            User updatedUser = userService.updateUser(id, user);
-            
-            UserResponse userResponse = Mapper.mapToUserResponse(updatedUser);
-            return ResponseEntity.ok(userResponse);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
-    
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteUser(@PathVariable String id) {
-        try {
-            userService.deleteUser(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
-    
-    @GetMapping("/email/{email}")
-    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
-        try {
-            User user = userService.getUserByEmail(email);
-            UserResponse userResponse = Mapper.mapToUserResponse(user);
-            return ResponseEntity.ok(userResponse);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse<>(e.getMessage()));
-        }
-    }
+//    public ResponseEntity<?> getAllUsers() {
+//        try {
+//            List<User> users = userService.getAllUsers();
+//            List<UserResponse> userResponses = users.stream()
+//                    .map(Mapper::mapToUserResponse)
+//                    .collect(Collectors.toList());
+//
+//            return ResponseEntity.ok(userResponses);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody RegisterUserRequest userRequest) {
+//        try {
+//            User user = new User();
+//            BeanUtils.copyProperties(userRequest, user);
+//            if (userRequest.getPassword() != null && !userRequest.getPassword().isEmpty()) {
+//                user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+//            }
+//            User updatedUser = userService.updateUser(id, user);
+//
+//            UserResponse userResponse = Mapper.mapToUserResponse(updatedUser);
+//            return ResponseEntity.ok(userResponse);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> deleteUser(@PathVariable String id) {
+//        try {
+//            userService.deleteUser(id);
+//            return ResponseEntity.noContent().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
+//
+//    @GetMapping("/email/{email}")
+//    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
+//        try {
+//            User user = userService.getUserByEmail(email);
+//            UserResponse userResponse = Mapper.mapToUserResponse(user);
+//            return ResponseEntity.ok(userResponse);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new ErrorResponse<>(e.getMessage()));
+//        }
+//    }
 }

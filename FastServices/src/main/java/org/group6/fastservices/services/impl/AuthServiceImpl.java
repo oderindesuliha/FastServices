@@ -15,6 +15,7 @@ import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.exceptions.InvalidRoleException;
 import org.group6.fastservices.services.AuthService;
+import org.group6.fastservices.services.EmailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AdminRepository adminRepository;
     private final CustomerRepository customerRepository;
+    private final EmailService emailService;
 
 
     @Override
@@ -54,6 +56,7 @@ public class AuthServiceImpl implements AuthService {
                 customerRepository.save(customer);
             }
         }
+        emailService.sendRegistrationEmail(savedUser.getEmail(), savedUser.getFirstName());
         return new RegisterUserResponse("Registered successfully", true);
     }
 
