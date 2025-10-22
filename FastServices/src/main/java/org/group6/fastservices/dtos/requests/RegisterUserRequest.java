@@ -30,5 +30,5 @@ public class RegisterUserRequest {
     @Pattern(regexp = "^0[7-9][0-1]\\d[- ]?\\d{3}[- ]?[0-9]{4}$", message = "Invalid phone")
     private String phone;
 
-    private String roles;
+    private String role;
 }
