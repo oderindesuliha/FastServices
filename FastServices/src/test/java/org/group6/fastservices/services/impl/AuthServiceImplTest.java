@@ -53,6 +53,7 @@ class AuthServiceImplTest {
         registerCustomer();
         LoginUserRequest loginCustomerReq = new LoginUserRequest();
         LoginUserResponse loginCustomerResp = authService.login(loginCustomerReq);
+        assertTrue(loginCustomerResp.isSuccess());
 
     }
 
