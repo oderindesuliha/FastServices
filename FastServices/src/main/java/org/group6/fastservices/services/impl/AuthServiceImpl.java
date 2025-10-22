@@ -30,6 +30,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void verifyNewPhone(String phone) {
-        if (userRepository.e)
+        if (userRepository.existsByPhone(phone)) throw new DetailsAlreadyInUseException("Phone belongs to an existing account");
     }
 }
