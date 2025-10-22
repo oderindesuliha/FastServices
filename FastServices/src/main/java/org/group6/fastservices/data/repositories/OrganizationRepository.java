@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface OrganizationRepository extends JpaRepository<Organization, String> {
     Optional<Organization> findByCode(String code);
     boolean existsByCode(String code);
+    boolean existsByContactEmail(String email);
+    boolean existsByContactPhone(String phone);
 }
