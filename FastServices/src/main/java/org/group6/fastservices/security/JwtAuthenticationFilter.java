@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
             String username = jwtTokenProvider.getUsername(token);
-            String roleClaim = jwtTokenProvider.getClaim(token, "role");
+            String roleClaim = jwtTokenProvider.getRoleClaim(token, "role");
 
             Role role = Role.valueOf(roleClaim.toUpperCase());
             var userDetailsService = serviceResolver.getServiceForRole(role);
