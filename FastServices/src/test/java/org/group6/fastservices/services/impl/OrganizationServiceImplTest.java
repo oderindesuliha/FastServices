@@ -34,13 +34,11 @@ class OrganizationServiceImplTest {
         orgRepository.deleteAll();
     }
 
-    @WithMockUser(roles = {"ADMIN"})
     @Test
     void testCanRegisterOrganization() {
         RegisterOrgResponse response = registerOrganization();
         String code = response.getCode();
         Optional<Organization> savedOrg = orgRepository.findByCode(code);
-        System.out.println(code);
         assertTrue(savedOrg.isPresent());
         assertEquals("YabaTech", savedOrg.get().getName());
         assertTrue(response.isSuccess());
@@ -48,9 +46,9 @@ class OrganizationServiceImplTest {
 
     @Test
     void testThatOrgCanCreateService() {
-        Crea
     }
 
+    @WithMockUser(roles = {"ADMIN"})
     private RegisterOrgResponse registerOrganization() {
         RegisterOrgRequest register = new RegisterOrgRequest();
         register.setName("YabaTech");
