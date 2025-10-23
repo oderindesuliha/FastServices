@@ -25,8 +25,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-import static org.group6.fastservices.data.models.Role.*;
-
 @Service
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -62,7 +60,6 @@ public class AuthServiceImpl implements AuthService {
             case ADMIN -> adminRepository.save((Admin) user);
             case CUSTOMER -> customerRepository.save((Customer) user);
         }
-
         emailService.sendRegistrationEmail(user.getEmail(), user.getFirstName());
         return new RegisterUserResponse("Registered successfully", true);
     }
