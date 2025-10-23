@@ -65,19 +65,12 @@ public class AuthServiceImpl implements AuthService {
             case CUSTOMER -> customerRepository.save((Customer) user);
         }
 
-        if(user instanceof Admin) {
-            adminRepository.save((Admin) user);
-        } else {
-            customerRepository.save((Customer ) user);
-        }
-
         emailService.sendRegistrationEmail(user.getEmail(), user.getFirstName());
         return new RegisterUserResponse("Registered successfully", true);
     }
 
     @Override
     public LoginResponse login(LoginRequest request) {
-        UserDetails userdetails;
         Role role = parseUserRole(request.getRole());
 
         switch (role) {
