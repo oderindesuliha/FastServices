@@ -1,7 +1,6 @@
 package org.group6.fastservices.controllers;
 
 import org.group6.fastservices.data.models.Offering;
-import org.group6.fastservices.dtos.requests.OfferingRequest;
 import org.group6.fastservices.dtos.responses.ErrorResponse;
 import org.group6.fastservices.dtos.responses.OfferingResponse;
 import org.group6.fastservices.services.OfferingService;

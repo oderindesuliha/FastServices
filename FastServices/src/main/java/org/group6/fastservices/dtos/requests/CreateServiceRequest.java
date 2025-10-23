@@ -6,4 +6,9 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CreateServiceRequest {
+    private String name;
+    private String description;
+    private int estimatedWaitTime;
+    private int duration;
+    private String organizationId;
 }

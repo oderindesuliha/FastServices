@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.models.Role;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
+import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.requests.RegisterOrgRequest;
+import org.group6.fastservices.dtos.responses.CreateServiceResponse;
 import org.group6.fastservices.dtos.responses.RegisterOrgResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.services.OrganizationService;
@@ -42,6 +44,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         organizationRepository.save(org);
         return new RegisterOrgResponse("Organization registered successfully", code, true);
+    }
+
+    @Override
+    public CreateServiceResponse createService(CreateServiceRequest request) {
+        return null;
     }
 
     private void verifyNewEmail(String email) {
