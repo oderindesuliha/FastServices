@@ -20,14 +20,21 @@ public class JwtTokenProvider {
     @Value("${app.jwt-expiration-milliseconds}")
     private long jwtExpirationDate;
 
+    // Generate token including username and role claim
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
+        String role = userDetails.getAuthorities().stream()
+                .findFirst()
+                .map(a -> a.getAuthority().replace("ROLE_", ""))
+                .orElse("USER");
+
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
 
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role) // Add role claim
                 .setIssuedAt(currentDate)
                 .setExpiration(expireDate)
                 .signWith(key())
@@ -55,7 +62,19 @@ public class JwtTokenProvider {
         }
     }
 
-    // Validate JWT token
+    public String getClaim(String token, String claimName) {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(key())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            return claims.get(claimName, String.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to extract claim '" + claimName + "' from token: " + e.getMessage());
+        }
+    }
+
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
@@ -71,8 +90,6 @@ public class JwtTokenProvider {
             throw new RuntimeException("Unsupported JWT token: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("JWT claims string is empty: " + e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("JWT token validation failed: " + e.getMessage());
         }
     }
 }
