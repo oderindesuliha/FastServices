@@ -6,7 +6,6 @@ import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.requests.RegisterOrgRequest;
 import org.group6.fastservices.dtos.responses.CreateServiceResponse;
 import org.group6.fastservices.dtos.responses.RegisterOrgResponse;
-import org.group6.fastservices.services.OrganizationService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,7 +48,7 @@ class OrganizationServiceImplTest {
     @Test
     void testThatOrgCanCreateService() {
         CreateServiceResponse response = createService();
-        response.
+        assertTrue(response.isSuccess());
     }
 
     @WithMockUser(roles = {"ADMIN"})
