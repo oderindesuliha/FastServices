@@ -28,6 +28,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import static Role.CUSTOMER;
+import static Role.ORGANIZATION;
+
 @Service
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -40,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final CustomUserDetailsService userService;
-    private final CustomOrganizationDetailsService sue
+    private final CustomOrganizationDetailsService orgService;
 
 
     @Override
@@ -82,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
 
         switch (role) {
             case CUSTOMER, ADMIN -> userdetails = userService.loadUserByUsername(request.getIdentifier());
-            cs
+            case ORGANIZATION ->
         }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
