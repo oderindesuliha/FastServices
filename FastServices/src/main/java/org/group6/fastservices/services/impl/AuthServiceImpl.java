@@ -81,7 +81,7 @@ public class AuthServiceImpl implements AuthService {
             default -> throw new InvalidRoleException("Invalid role");
         };
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDetails, request.getPassword())
+                new UsernamePasswordAuthenticationToken(userDetails.getUsername(), request.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
