@@ -1,25 +1,6 @@
 package org.group6.fastservices.controllers;
 
-import org.group6.fastservices.data.models.User;
-import org.group6.fastservices.dtos.requests.RegisterUserRequest;
-import org.group6.fastservices.dtos.responses.ErrorResponse;
-import org.group6.fastservices.dtos.responses.JwtAuthResponse;
-import org.group6.fastservices.dtos.responses.UserResponse;
-import org.group6.fastservices.security.JwtTokenProvider;
-import org.group6.fastservices.services.UserService;
-import org.group6.fastservices.utils.Mapper;
-import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/auth")
