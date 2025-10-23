@@ -59,7 +59,7 @@ public class Organization implements UserDetails {
 
     @Override
     public String getUsername() {
-        return contactEmail;
+        return code;
     }
 
     @Override
