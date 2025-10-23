@@ -13,6 +13,7 @@ import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.exceptions.InvalidRoleException;
 import org.group6.fastservices.security.CustomOrganizationDetailsService;
+import org.group6.fastservices.security.CustomServiceResolver;
 import org.group6.fastservices.security.CustomUserDetailsService;
 import org.group6.fastservices.security.JwtTokenProvider;
 import org.group6.fastservices.services.AuthService;
@@ -23,6 +24,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final CustomUserDetailsService userService;
     private final CustomOrganizationDetailsService orgService;
+    private final CustomServiceResolver customServiceResolver;
 
 
     @Override
@@ -74,8 +77,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(LoginRequest request) {
         Role role = parseUserRole(request.getRole());
+        UserDetailsService service = customServiceResolver.getServiceForRole(role);
+        UserDetails userDetails = service.loadUserByUsername(request.getIdentifier());
+
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getIdentifier(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(userDetails.getUsername(), request.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

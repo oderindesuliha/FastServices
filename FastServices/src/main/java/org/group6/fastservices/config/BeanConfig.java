@@ -28,28 +28,3 @@ public class BeanConfig {
         return new JavaMailSenderImpl();
     }
 }
-
-
-@Override
-public LoginResponse login(LoginRequest request) {
-    // Parse role (optional: for JWT)
-    Role role = parseUserRole(request.getRole());
-
-    // Let AuthenticationManager handle user loading and password check
-    Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                    request.getIdentifier(),  // email/username
-                    request.getPassword()     // raw password
-            )
-    );
-
-    // Set the authentication context
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-
-    // Generate JWT with role info from authorities
-    String token = jwtTokenProvider.generateToken(authentication);
-
-    return new LoginResponse("Logged in successfully", token, true);
-}
-
-
