@@ -8,12 +8,15 @@ import org.group6.fastservices.dtos.requests.LoginRequest;
 import org.group6.fastservices.dtos.requests.RegisterUserRequest;
 import org.group6.fastservices.dtos.responses.LoginResponse;
 import org.group6.fastservices.dtos.responses.RegisterUserResponse;
+import org.group6.fastservices.security.CustomOrganizationDetailsService;
+import org.group6.fastservices.security.CustomUserDetailsService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,7 +39,11 @@ class AuthServiceImplTest {
     @MockitoBean
     JavaMailSender javaMailSender;
     @MockitoBean
-
+    private CustomUserDetailsService customUserDetailsService;
+    @MockitoBean
+    private CustomOrganizationDetailsService customOrganizationDetailsSer;
+    @MockitoBean
+    private AuthenticationManager authenticationManager;
 
     @BeforeEach
     void setUp() {
@@ -73,6 +80,7 @@ class AuthServiceImplTest {
         LoginRequest loginCustomerReq = new LoginRequest();
         loginCustomerReq.setIdentifier("bramtechxxvi@gmail.com");
         loginCustomerReq.setPassword("password");
+        loginCustomerReq.setRole("customer");
 
         LoginResponse loginCustomerResp = authService.login(loginCustomerReq);
         assertTrue(loginCustomerResp.isSuccess());
