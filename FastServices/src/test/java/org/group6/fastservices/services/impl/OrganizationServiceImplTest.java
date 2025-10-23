@@ -48,7 +48,7 @@ class OrganizationServiceImplTest {
 
     @Test
     void testThatOrgCanCreateService() {
-
+        Crea
     }
 
     private RegisterOrgResponse registerOrganization() {
