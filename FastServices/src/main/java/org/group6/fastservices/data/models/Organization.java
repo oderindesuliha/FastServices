@@ -37,6 +37,10 @@ public class Organization implements UserDetails {
     private String contactEmail;
 
     @NotBlank
+    @Column(unique = true)
+    private String contactPhone;
+
+    @NotBlank
     private String password;
 
     private String role;

@@ -35,6 +35,8 @@ class AuthServiceImplTest {
     private CustomerRepository customerRepository;
     @MockitoBean
     JavaMailSender javaMailSender;
+    @MockitoBean
+
 
     @BeforeEach
     void setUp() {
@@ -69,7 +71,7 @@ class AuthServiceImplTest {
     void testCanLoginUser() {
         registerCustomer();
         LoginRequest loginCustomerReq = new LoginRequest();
-        loginCustomerReq.setEmail("bramtechxxvi@gmail.com");
+        loginCustomerReq.setIdentifier("bramtechxxvi@gmail.com");
         loginCustomerReq.setPassword("password");
 
         LoginResponse loginCustomerResp = authService.login(loginCustomerReq);
