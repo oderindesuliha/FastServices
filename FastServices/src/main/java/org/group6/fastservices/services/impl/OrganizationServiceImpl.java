@@ -23,7 +23,6 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-
     @Override
     public RegisterOrgResponse registerOrganization(RegisterOrgRequest register) {
         verifyNewEmail(register.getContactEmail());
@@ -41,7 +40,6 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         organizationRepository.save(org);
         return new RegisterOrgResponse("Organization registered successfully", code, true);
-
     }
 
     private void verifyNewEmail(String email) {
