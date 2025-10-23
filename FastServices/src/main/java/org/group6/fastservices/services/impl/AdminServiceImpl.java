@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-
 import static org.group6.fastservices.utils.OrganizationCodeGenerator.generateCode;
 
 @Service
@@ -40,7 +39,6 @@ public class AdminServiceImpl implements AdminService {
         org.setRole(Role.ORGANIZATION.toString());
 
         organizationRepository.save(org);
-
         return new RegisterOrgResponse("Organization registered successfully", code, true);
     }
 
