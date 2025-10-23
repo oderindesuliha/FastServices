@@ -18,10 +18,11 @@ class OrganizationServiceImplTest {
     @Autowired
     private OrganizationRepository orgRepository;
 
+    @WithMockUser(roles = {"ADMIN"})
     @Test
     void testCanRegisterOrganization() {
         RegisterOrgResponse response = registerOrganization();
-        assertTrue(response.)
+        assertTrue(response.isSuccess());
     }
 
     private RegisterOrgResponse registerOrganization() {
