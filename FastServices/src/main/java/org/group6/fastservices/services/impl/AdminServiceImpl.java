@@ -53,8 +53,4 @@ public class AdminServiceImpl implements AdminService {
         if (organizationRepository.existsByContactPhone(phone))
             throw new DetailsAlreadyInUseException("Phone already exists");
     }
-
-    private void verifyNewCode(String code) {
-        if(organizationRepository.existsByCode(code));
-    }
 }
