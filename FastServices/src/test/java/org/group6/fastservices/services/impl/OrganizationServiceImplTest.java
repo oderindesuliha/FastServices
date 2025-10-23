@@ -2,7 +2,9 @@ package org.group6.fastservices.services.impl;
 
 import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
+import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.requests.RegisterOrgRequest;
+import org.group6.fastservices.dtos.responses.CreateServiceResponse;
 import org.group6.fastservices.dtos.responses.RegisterOrgResponse;
 import org.group6.fastservices.services.OrganizationService;
 import org.junit.jupiter.api.AfterEach;
@@ -46,6 +48,7 @@ class OrganizationServiceImplTest {
 
     @Test
     void testThatOrgCanCreateService() {
+        CreateServiceResponse response = createService();
     }
 
     @WithMockUser(roles = {"ADMIN"})
@@ -57,6 +60,14 @@ class OrganizationServiceImplTest {
         register.setPassword("yabatech");
 
         return orgService.registerOrganization(register);
+    }
+
+    private CreateServiceResponse createService() {
+        CreateServiceRequest createOffering = new CreateServiceRequest();
+        createOffering.setName("Undergraduate clearance");
+        createOffering.setDescription("Requesting admission clearance for registration");
+
+        return orgService.createService(createOffering);
     }
 
 }
