@@ -8,8 +8,6 @@ import org.group6.fastservices.dtos.requests.LoginRequest;
 import org.group6.fastservices.dtos.requests.RegisterUserRequest;
 import org.group6.fastservices.dtos.responses.LoginResponse;
 import org.group6.fastservices.dtos.responses.RegisterUserResponse;
-import org.group6.fastservices.security.CustomOrganizationDetailsService;
-import org.group6.fastservices.security.CustomUserDetailsService;
 import org.group6.fastservices.security.JwtTokenProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,12 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -40,10 +41,6 @@ class AuthServiceImplTest {
     @MockitoBean
     JavaMailSender javaMailSender;
     @MockitoBean
-    private CustomUserDetailsService customUserDetailsService;
-    @MockitoBean
-    private CustomOrganizationDetailsService customOrganizationDetailsSer;
-    @MockitoBean
     private AuthenticationManager authenticationManager;
     @MockitoBean
     private JwtTokenProvider jwtTokenProvider;
@@ -53,13 +50,23 @@ class AuthServiceImplTest {
         userRepository.deleteAll();
         customerRepository.deleteAll();
         adminRepository.deleteAll();
+        doNothing().when(javaMailSender).send(any(MimeMessage.class));
+
+        when(authenticationManager.authenticate(any()))
+                .thenAnswer(invocation -> {
+                    UsernamePasswordAuthenticationToken authToken = invocation.getArgument(0);
+                    return new UsernamePasswordAuthenticationToken(
+                            authToken.getPrincipal(), authToken.getCredentials(), List.of()
+                    );
+                });
+        when(jwtTokenProvider.generateToken(any()))
+                .thenReturn("mock-jwt-token");
     }
     @AfterEach
     void tearDown() {
         userRepository.deleteAll();
         customerRepository.deleteAll();
         adminRepository.deleteAll();
-        doNothing().when(javaMailSender).send(any(MimeMessage.class));
     }
 
     @Test
