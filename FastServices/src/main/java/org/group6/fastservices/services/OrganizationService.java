@@ -10,7 +10,6 @@ public interface OrganizationService {
     RegisterOrgResponse registerOrganization(RegisterOrgRequest registerRequest);
     CreateServiceResponse createService(CreateServiceRequest request);
 //    Organization getOrganizationById(String id);
-//    Organization getOrganizationByCode(String code);
 //    List<Organization> getAllOrganizations();
 //    Organization updateOrganization(String id, Organization organization);
 //    void deleteOrganization(String id);
