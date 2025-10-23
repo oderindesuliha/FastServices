@@ -19,6 +19,10 @@ class OrganizationServiceImplTest {
     private OrganizationRepository orgRepository;
 
     @Test
+    void testCanRegisterOrganization() {
+        RegisterOrgResponse response = registerOrganization();
+        assertTrue(response.)
+    }
 
     private RegisterOrgResponse registerOrganization() {
         RegisterOrgRequest register = new RegisterOrgRequest();
