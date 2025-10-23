@@ -38,7 +38,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         org.setCode(code);
         org.setPassword(passwordEncoder.encode(register.getPassword()));
         org.setCreatedAt(LocalDateTime.now());
-        org.setRole(Role.ORGANIZATION.toString());
+        org.setRole(Role.ORGANIZATION.name());
 
         organizationRepository.save(org);
         return new RegisterOrgResponse("Organization registered successfully", code, true);
