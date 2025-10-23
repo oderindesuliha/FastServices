@@ -82,6 +82,7 @@ public class AuthServiceImpl implements AuthService {
 
         switch (role) {
             case CUSTOMER, ADMIN -> userdetails = userService.loadUserByUsername(request.getIdentifier());
+            cs
         }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())

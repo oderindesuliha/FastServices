@@ -6,11 +6,6 @@ public enum Role {
     ADMIN
 }
 
-        switch (role) {
-            case CUSTOMER, ADMIN -> userDetails = userService.loadUserByUsername(request.getEmail());
-            case ORGANIZATION -> userDetails = orgService.loadUserByUsername(request.getCode());
-            default -> throw new InvalidRoleException("Unsupported role for login");
-        }
 
         // Authenticate using Spring Security
         authenticationManager.authenticate(
