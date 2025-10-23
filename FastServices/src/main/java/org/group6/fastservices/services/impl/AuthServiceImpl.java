@@ -43,8 +43,6 @@ public class AuthServiceImpl implements AuthService {
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
-    private final CustomUserDetailsService userService;
-    private final CustomOrganizationDetailsService orgService;
     private final CustomServiceResolver customServiceResolver;
 
 
