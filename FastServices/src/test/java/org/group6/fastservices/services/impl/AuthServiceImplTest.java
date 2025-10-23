@@ -80,7 +80,7 @@ class AuthServiceImplTest {
         LoginRequest loginCustomerReq = new LoginRequest();
         loginCustomerReq.setIdentifier("bramtechxxvi@gmail.com");
         loginCustomerReq.setPassword("password");
-        loginCustomerReq.setRole("customer");
+        loginCustomerReq.setRole("CUSTOMER");
 
         LoginResponse loginCustomerResp = authService.login(loginCustomerReq);
         assertTrue(loginCustomerResp.isSuccess());

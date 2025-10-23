@@ -75,11 +75,6 @@ public class AuthServiceImpl implements AuthService {
     public LoginResponse login(LoginRequest request) {
         Role role = parseUserRole(request.getRole());
 
-        UserDetails userDetails = switch (role) {
-            case CUSTOMER, ADMIN -> userService.loadUserByUsername(request.getIdentifier());
-            case ORGANIZATION -> orgService.loadUserByUsername(request.getIdentifier());
-            default -> throw new InvalidRoleException("Invalid role");
-        };
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userDetails.getUsername(), request.getPassword())
         );

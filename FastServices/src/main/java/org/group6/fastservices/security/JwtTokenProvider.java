@@ -16,16 +16,15 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${JWT_SECRET}")
+    @Value("${jwt-secret}")
     private String jwtSecret;
 
-    @Value("${EXPIRY_SECONDS}")
+    @Value("${jwt-expiration-milliseconds}")
     private long jwtExpirationDate;
 
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        // Extract role from authorities and map to Role enum
         Role role = userDetails.getAuthorities().stream()
                 .findFirst()
                 .map(a -> a.getAuthority().replace("ROLE_", ""))
