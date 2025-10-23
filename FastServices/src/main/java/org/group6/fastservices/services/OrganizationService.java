@@ -14,5 +14,4 @@ public interface OrganizationService {
 //    List<Organization> getAllOrganizations();
 //    Organization updateOrganization(String id, Organization organization);
 //    void deleteOrganization(String id);
-//    boolean existsByCode(String code);
 }
