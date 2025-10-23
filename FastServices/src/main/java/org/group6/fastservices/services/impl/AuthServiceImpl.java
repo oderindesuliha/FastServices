@@ -85,10 +85,10 @@ public class AuthServiceImpl implements AuthService {
 
         switch (role) {
             case CUSTOMER, ADMIN -> userdetails = userService.loadUserByUsername(request.getIdentifier());
-            case ORGANIZATION ->
+            case ORGANIZATION -> userdetails = orgService.loadUserByUsername(request.getIdentifier());
         }
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getIdentifier(), request.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
