@@ -44,7 +44,7 @@ public class User implements UserDetails {
    private String phone;
 
    @NotBlank
-   private String roles; // Store roles as comma-separated values
+   private String roles;
 
    @CreationTimestamp
    @Column(name = "created_at")
@@ -59,7 +59,6 @@ public class User implements UserDetails {
        if (roles == null || roles.isEmpty()) {
            return new ArrayList<>();
        }
-       
        return Arrays.stream(roles.split(","))
                .map(String::trim)
                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
@@ -91,7 +90,6 @@ public boolean isAccountNonLocked() {
        return true;
    }
    
-   // Helper method to set roles
    public void setRoles(Set<Role> roleSet) {
        StringBuilder rolesBuilder = new StringBuilder();
        boolean first = true;
@@ -105,12 +103,10 @@ public boolean isAccountNonLocked() {
        this.roles = rolesBuilder.toString();
     }
 
-   // Helper method to set roles directly as string
    public void setRoles(String roles) {
        this.roles = roles;
    }
 
-   // Helper method to get roles as Set
    public Set<Role> getRolesAsSet() {
        if (roles == null || roles.isEmpty()) {
            return new HashSet<>();
@@ -122,7 +118,6 @@ public boolean isAccountNonLocked() {
            try {
                roleSet.add(Role.valueOf(role.trim()));
            } catch (IllegalArgumentException e) {
-               // Ignore invalid roles
            }
        }
        return roleSet;
