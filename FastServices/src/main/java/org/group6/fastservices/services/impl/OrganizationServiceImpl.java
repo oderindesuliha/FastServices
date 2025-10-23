@@ -13,9 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
 import static org.group6.fastservices.utils.OrganizationCodeGenerator.generateCode;
 
 @Service
