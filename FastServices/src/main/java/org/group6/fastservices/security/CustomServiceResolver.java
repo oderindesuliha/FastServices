@@ -12,7 +12,6 @@ import java.util.Map;
 public class CustomServiceResolver {
     private final Map<String, UserDetailsService> userDetailsServices;
 
-
     public UserDetailsService getServiceForRole(Role role) {
         return switch (role) {
             case CUSTOMER, ADMIN -> userDetailsServices.get("customUserDetailsService");
