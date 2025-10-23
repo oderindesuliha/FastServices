@@ -3,45 +3,46 @@ package org.group6.fastservices.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.group6.fastservices.data.models.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.Instant;
 import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
 
-    @Value("${app.jwt-secret}")
+    @Value("${JWT_SECRET}")
     private String jwtSecret;
 
-    @Value("${app.jwt-expiration-milliseconds}")
+    @Value("${EXPIRY_SECONDS}")
     private long jwtExpirationDate;
 
-    // Generate token including username and role claim
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-        String role = userDetails.getAuthorities().stream()
+
+        // Extract role from authorities and map to Role enum
+        Role role = userDetails.getAuthorities().stream()
                 .findFirst()
                 .map(a -> a.getAuthority().replace("ROLE_", ""))
-                .orElse("USER");
-
-        Date currentDate = new Date();
-        Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
+                .map(String::toUpperCase)
+                .map(Role::valueOf)
+                .orElse(Role.CUSTOMER);
 
         return Jwts.builder()
-                .setSubject(username)
-                .claim("role", role) // Add role claim
-                .setIssuedAt(currentDate)
-                .setExpiration(expireDate)
-                .signWith(key())
+                .setSubject(userDetails.getUsername())
+                .claim("role", role.name()) // store enum name as claim
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().plusSeconds(jwtExpirationDate)))
+                .signWith(getSigningKey())
                 .compact();
     }
 
-    private Key key() {
+    private Key getSigningKey() {
         try {
             return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
         } catch (Exception e) {
@@ -50,46 +51,33 @@ public class JwtTokenProvider {
     }
 
     public String getUsername(String token) {
-        try {
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(key())
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-            return claims.getSubject();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to extract username from token: " + e.getMessage());
-        }
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
     }
 
-    public String getClaim(String token, String claimName) {
-        try {
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(key())
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-            return claims.get(claimName, String.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to extract claim '" + claimName + "' from token: " + e.getMessage());
-        }
+    public Role getRole(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        String role = claims.get("role", String.class);
+        return Role.valueOf(role);
     }
 
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(key())
+                    .setSigningKey(getSigningKey())
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (MalformedJwtException e) {
-            throw new RuntimeException("Invalid JWT token: " + e.getMessage());
-        } catch (ExpiredJwtException e) {
-            throw new RuntimeException("Expired JWT token: " + e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            throw new RuntimeException("Unsupported JWT token: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("JWT claims string is empty: " + e.getMessage());
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
         }
     }
 }
