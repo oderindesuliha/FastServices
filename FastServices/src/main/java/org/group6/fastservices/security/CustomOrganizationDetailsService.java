@@ -14,7 +14,7 @@ public class CustomOrganizationDetailsService implements UserDetailsService {
     private final OrganizationRepository organizationRepository;
     @Override
     public UserDetails loadUserByUsername(String code) throws UsernameNotFoundException {
-        return (UserDetails) organizationRepository.findByCode(code)
+        return organizationRepository.findByCode(code)
                 .orElseThrow(()-> new UsernameNotFoundException("Organization not found"));
     }
 }
