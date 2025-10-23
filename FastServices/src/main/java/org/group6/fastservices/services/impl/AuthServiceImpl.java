@@ -6,9 +6,9 @@ import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.models.Role;
 import org.group6.fastservices.data.models.User;
 import org.group6.fastservices.data.repositories.*;
-import org.group6.fastservices.dtos.requests.LoginUserRequest;
+import org.group6.fastservices.dtos.requests.LoginRequest;
 import org.group6.fastservices.dtos.requests.RegisterUserRequest;
-import org.group6.fastservices.dtos.responses.LoginUserResponse;
+import org.group6.fastservices.dtos.responses.LoginResponse;
 import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.exceptions.InvalidRoleException;
@@ -20,6 +20,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -71,14 +72,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public LoginUserResponse login(LoginUserRequest request) {
+    public LoginResponse login(LoginRequest request) {
+        UserDetails userdetails;
+        Role role = parseUserRole(request.)
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);
-        return new LoginUserResponse(
+        return new LoginResponse(
                 "Logged in successfully",
                 token,
                 true

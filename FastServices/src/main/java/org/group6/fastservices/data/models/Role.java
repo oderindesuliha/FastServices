@@ -47,3 +47,33 @@ public class AuthServiceImpl implements AuthService {
     }
 }
 
+
+
+
+@Override
+public LoginUserResponse login(LoginUserRequest request) {
+    UserDetails userDetails;
+
+    // Determine which service to use based on type
+    if ("ORGANIZATION".equalsIgnoreCase(request.getType())) {
+        userDetails = orgService.loadUserByUsername(request.getIdentifier());
+    } else {
+        userDetails = userService.loadUserByUsername(request.getIdentifier());
+    }
+
+    // Authenticate
+    authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(userDetails.getUsername(), request.getPassword())
+    );
+
+    // Generate JWT including role claim
+    String token = jwtTokenProvider.generateToken(userDetails);
+
+    return new LoginUserResponse(
+            "Logged in successfully",
+            token,
+            true
+    );
+}
+
+

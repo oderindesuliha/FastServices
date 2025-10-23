@@ -4,9 +4,9 @@ import jakarta.mail.internet.MimeMessage;
 import org.group6.fastservices.data.models.Admin;
 import org.group6.fastservices.data.models.User;
 import org.group6.fastservices.data.repositories.*;
-import org.group6.fastservices.dtos.requests.LoginUserRequest;
+import org.group6.fastservices.dtos.requests.LoginRequest;
 import org.group6.fastservices.dtos.requests.RegisterUserRequest;
-import org.group6.fastservices.dtos.responses.LoginUserResponse;
+import org.group6.fastservices.dtos.responses.LoginResponse;
 import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,11 +68,11 @@ class AuthServiceImplTest {
     @Test
     void testCanLoginUser() {
         registerCustomer();
-        LoginUserRequest loginCustomerReq = new LoginUserRequest();
+        LoginRequest loginCustomerReq = new LoginRequest();
         loginCustomerReq.setEmail("bramtechxxvi@gmail.com");
         loginCustomerReq.setPassword("password");
 
-        LoginUserResponse loginCustomerResp = authService.login(loginCustomerReq);
+        LoginResponse loginCustomerResp = authService.login(loginCustomerReq);
         assertTrue(loginCustomerResp.isSuccess());
     }
 
