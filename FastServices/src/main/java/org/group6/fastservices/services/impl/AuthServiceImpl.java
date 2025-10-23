@@ -28,9 +28,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-import static Role.CUSTOMER;
-import static Role.ORGANIZATION;
-
 @Service
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -84,11 +81,13 @@ public class AuthServiceImpl implements AuthService {
         Role role = parseUserRole(request.getRole());
 
         switch (role) {
+
             case CUSTOMER, ADMIN -> userdetails = userService.loadUserByUsername(request.getIdentifier());
             case ORGANIZATION -> userdetails = orgService.loadUserByUsername(request.getIdentifier());
+            default -> throw new InvalidRoleException("Invalid role");
         }
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getIdentifier(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(userdetails.getUsername(), request.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
