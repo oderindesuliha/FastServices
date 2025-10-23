@@ -22,7 +22,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider jwtTokenProvider;
 //    private final CustomServiceResolver serviceResolver;
-    private final UserDetailsService userDetailsService;
+    private final CustomServiceResolver customServiceResolver;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String roleClaim = String.valueOf(jwtTokenProvider.getRoleClaim(token));
 
             Role role = Role.valueOf(roleClaim.toUpperCase());
-//            var userDetailsService = serviceResolver.getServiceForRole(role);
+            var userDetailsService = customServiceResolver.getServiceForRole(role);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authenticationToken =

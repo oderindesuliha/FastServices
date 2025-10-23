@@ -10,6 +10,7 @@ import org.group6.fastservices.dtos.responses.LoginResponse;
 import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 import org.group6.fastservices.security.CustomOrganizationDetailsService;
 import org.group6.fastservices.security.CustomUserDetailsService;
+import org.group6.fastservices.security.JwtTokenProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,8 @@ class AuthServiceImplTest {
     private CustomOrganizationDetailsService customOrganizationDetailsSer;
     @MockitoBean
     private AuthenticationManager authenticationManager;
+    @MockitoBean
+    private JwtTokenProvider jwtTokenProvider;
 
     @BeforeEach
     void setUp() {
@@ -77,7 +80,7 @@ class AuthServiceImplTest {
     @Test
     void testCanLoginUser() {
         registerCustomer();
-        LoginRequest loginCustomerReq = new LoginRequest();
+        var loginCustomerReq = new LoginRequest();
         loginCustomerReq.setIdentifier("bramtechxxvi@gmail.com");
         loginCustomerReq.setPassword("password");
         loginCustomerReq.setRole("CUSTOMER");
