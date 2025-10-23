@@ -10,4 +10,5 @@ public class RegisterOrgRequest {
     private String name;
     private String contactEmail;
     private String contactPhone;
+    private String password;
 }
