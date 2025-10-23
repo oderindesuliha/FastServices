@@ -9,6 +9,7 @@ import org.group6.fastservices.dtos.responses.RegisterOrgResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.services.OrganizationService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public RegisterOrgResponse registerOrganization(RegisterOrgRequest register) {
         verifyNewEmail(register.getContactEmail());
         verifyNewPhone(register.getContactPhone());
