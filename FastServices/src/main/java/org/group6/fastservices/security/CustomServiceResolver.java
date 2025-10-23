@@ -17,7 +17,6 @@ public class CustomServiceResolver {
         return switch (role) {
             case CUSTOMER, ADMIN -> userDetailsServices.get("customUserDetailsService");
             case ORGANIZATION -> userDetailsServices.get("customOrganizationDetailsService");
-            default -> throw new IllegalArgumentException("No UserDetailsService for role: " + role);
         };
     }
 }
