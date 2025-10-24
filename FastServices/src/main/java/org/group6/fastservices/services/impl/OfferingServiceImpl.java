@@ -30,12 +30,15 @@ public class OfferingServiceImpl implements OfferingService {
 
     @Override
     public CreateServiceResponse createOffering(CreateServiceRequest request) {
+        Organization organization = getAuthenticatedOrg();
+        validateDuplicateServiceName(organization, request.getName());
+
         Offering service = modelMapper.map(request, Offering.class);
         service.setOrganization(organization);
         service.setCreatedAt(LocalDateTime.now());
+
         organization.getServices().add(service);
         organizationRepository.save(organization);
-        Offering offering = offeringRepository.save(service);
 
         return new CreateServiceResponse(offering.getName(), "Added successfully", true);
         return null;
