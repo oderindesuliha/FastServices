@@ -62,14 +62,4 @@ class OrganizationServiceImplTest {
         return orgService.registerOrganization(register);
     }
 
-    private CreateServiceResponse createService() {
-        CreateServiceRequest createOffering = new CreateServiceRequest();
-        createOffering.setName("Undergraduate clearance");
-        createOffering.setDescription("Requesting admission clearance for registration");
-        createOffering.setEstimatedWaitTime(20);
-        createOffering.setDuration(40);
-
-        return orgService.createService(createOffering);
-    }
-
 }
