@@ -47,6 +47,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         return new RegisterOrgResponse("Organization registered successfully", organization.getCode(), true);
     }
 
+
+
     private void verifyNewEmail(String email) {
         if (organizationRepository.existsByContactEmail(email))
             throw new DetailsAlreadyInUseException("Organization already exists");

@@ -6,4 +6,5 @@ import org.group6.fastservices.dtos.responses.RegisterOrgResponse;
 public interface OrganizationService {
     RegisterOrgResponse registerOrganization(RegisterOrgRequest registerRequest);
 
+
 }

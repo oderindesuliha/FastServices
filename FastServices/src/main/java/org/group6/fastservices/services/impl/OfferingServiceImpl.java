@@ -12,21 +12,17 @@ import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.OfferingService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class OfferingServiceImpl implements OfferingService {
     
-    private final OfferingRepository offeringRepository;
     private final OrganizationRepository organizationRepository;
     private final ModelMapper modelMapper;
 

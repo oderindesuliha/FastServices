@@ -3,7 +3,8 @@ package org.group6.fastservices.data.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,7 +12,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -48,9 +50,14 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 
     public void setRoles(Set<Role> roleSet) {
         this.roles = String.join(",",

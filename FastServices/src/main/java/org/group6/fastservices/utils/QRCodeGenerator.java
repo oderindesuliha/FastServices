@@ -6,7 +6,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import org.group6.fastservices.dtos.requests.QRCodeRequest;
+import org.group6.fastservices.dtos.requests.GenerateQRCodeRequest;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class QRCodeGenerator {
     
-    public static String generateQRCode(QRCodeRequest request) throws WriterException, IOException {
+    public static String generateQRCode(GenerateQRCodeRequest request) throws WriterException, IOException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         
         Map<EncodeHintType, Object> hints = new HashMap<>();

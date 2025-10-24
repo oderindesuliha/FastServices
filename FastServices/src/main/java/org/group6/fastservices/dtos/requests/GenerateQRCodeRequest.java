@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @RequiredArgsConstructor
-public class QRCodeRequest {
+public class GenerateQRCodeRequest {
     private String text;
     private int width = 300;
     private int height = 300;
