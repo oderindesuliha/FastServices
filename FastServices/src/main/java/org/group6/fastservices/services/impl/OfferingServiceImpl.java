@@ -30,7 +30,7 @@ public class OfferingServiceImpl implements OfferingService {
 
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ORGANIZATION')")
     public CreateServiceResponse createOffering(CreateServiceRequest request) {
         Organization organization = getAuthenticatedOrg();
         validateDuplicateServiceName(organization, request.getName());
