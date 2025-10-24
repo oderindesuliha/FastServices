@@ -1,7 +1,12 @@
 package org.group6.fastservices.services.impl;
 
+import org.group6.fastservices.data.models.Organization;
+import org.group6.fastservices.data.repositories.OfferingRepository;
+import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.responses.CreateServiceResponse;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,6 +17,19 @@ class OfferingServiceImplTest {
 
     @Autowired
     private OfferingServiceImpl offeringService;
+    private OrganizationRepository organizationRepository;
+    private OfferingRepository offeringRepository;
+
+    @BeforeEach
+    void setUp() {
+
+    }
+
+    @Test
+    void testThatOrgCanCreateService() {
+        CreateServiceResponse response = createService();
+        assertTrue(response.isSuccess());
+    }
 
 
 

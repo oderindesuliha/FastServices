@@ -46,11 +46,7 @@ class OrganizationServiceImplTest {
         assertTrue(response.isSuccess());
     }
 
-    @Test
-    void testThatOrgCanCreateService() {
-        CreateServiceResponse response = createService();
-        assertTrue(response.isSuccess());
-    }
+
 
     private RegisterOrgResponse registerOrganization() {
         RegisterOrgRequest register = new RegisterOrgRequest();

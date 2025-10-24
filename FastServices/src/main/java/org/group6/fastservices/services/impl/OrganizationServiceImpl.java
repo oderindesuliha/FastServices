@@ -48,35 +48,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         return new RegisterOrgResponse("Organization registered successfully", organization.getCode(), true);
     }
 
-    @Override
-    public CreateServiceResponse createService(CreateServiceRequest request) {
-        Organization organization = getAuthenticatedOrg();
-        validateDuplicateServiceName(organization, request.getName());
 
-        Offering service = modelMapper.map(request, Offering.class);
-        service.setOrganization(organization);
-        service.setCreatedAt(LocalDateTime.now());
-        organization.getServices().add(service);
-        organizationRepository.save(organization);
-        Offering offering = offeringRepository.save(service);
-
-        return new CreateServiceResponse(offering.getName(), "Added successfully", true);
-    }
-
-    private void validateDuplicateServiceName(Organization org, String serviceName) {
-        boolean exists = org.getServices().stream()
-                .anyMatch(service -> service.getName().equals(serviceName));
-        if (exists) throw new DetailsAlreadyInUseException("Service with name " + serviceName + " already exists");
-    }
-
-    private Organization getAuthenticatedOrg() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null || !auth.isAuthenticated()) throw new RuntimeException("Unauthenticated access");
-
-        var orgDetails = (Organization) auth.getPrincipal();
-        return organizationRepository.findByCode(orgDetails.getCode())
-                .orElseThrow(()-> new DetailsAlreadyInUseException("Authenticated organization not found"));
-    }
 
     private void verifyNewEmail(String email) {
         if (organizationRepository.existsByContactEmail(email))
