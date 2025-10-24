@@ -5,6 +5,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.group6.fastservices.data.models.Role;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,10 @@ public class JwtTokenProvider {
                 .setExpiration(Date.from(Instant.now().plusSeconds(jwtExpirationDate)))
                 .signWith(getSigningKey())
                 .compact();
+    }
+
+    public String generateToken(Authentication authentication) {
+        return generateToken((UserDetails) authentication.getPrincipal());
     }
 
     private Key getSigningKey() {
