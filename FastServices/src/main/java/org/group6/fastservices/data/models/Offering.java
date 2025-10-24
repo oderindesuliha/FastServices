@@ -24,7 +24,7 @@ public class Offering {
 
     @ManyToOne
     @JoinColumn(name = "organization_id")
-    private Organization organizationId;
+    private Organization organization;
     
     @CreationTimestamp
     private LocalDateTime createdAt;

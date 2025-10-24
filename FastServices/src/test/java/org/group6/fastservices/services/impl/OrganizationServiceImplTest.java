@@ -35,6 +35,7 @@ class OrganizationServiceImplTest {
         orgRepository.deleteAll();
     }
 
+    @WithMockUser(username="admin", roles = {"ADMIN"})
     @Test
     void testCanRegisterOrganization() {
         RegisterOrgResponse response = registerOrganization();
@@ -51,7 +52,6 @@ class OrganizationServiceImplTest {
         assertTrue(response.isSuccess());
     }
 
-    @WithMockUser(roles = {"ADMIN"})
     private RegisterOrgResponse registerOrganization() {
         RegisterOrgRequest register = new RegisterOrgRequest();
         register.setName("YabaTech");

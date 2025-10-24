@@ -19,7 +19,6 @@ public class Mapper {
         
         OrganizationResponse organizationResponse = new OrganizationResponse();
         BeanUtils.copyProperties(organization, organizationResponse);
-        // Avoid circular reference by not mapping services and queues which contain references back to organization
         return organizationResponse;
     }
     
