@@ -1,8 +1,10 @@
 package org.group6.fastservices.services.impl;
 
 import lombok.AllArgsConstructor;
+import org.group6.fastservices.data.models.Offering;
 import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.models.Role;
+import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.requests.RegisterOrgRequest;
@@ -27,6 +29,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationRepository organizationRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
+    private final OfferingRepository offeringRepository;
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
@@ -47,8 +50,23 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public CreateServiceResponse createService(CreateServiceRequest request) {
-        Organization organization = getA
-        return null;
+        Organization organization = getAuthenticatedOrg();
+        validateDuplicateServiceName(organization, request.getName());
+
+        Offering service = modelMapper.map(request, Offering.class);
+        service.setOrganization(organization);
+        service.setCreatedAt(LocalDateTime.now());
+        organization.getServices().add(service);
+        organizationRepository.save(organization);
+        Offering offering = offeringRepository.save(service);
+
+        return new CreateServiceResponse(offering.getName(), "Added successfully", true);
+    }
+
+    private void validateDuplicateServiceName(Organization org, String serviceName) {
+        boolean exists = org.getServices().stream()
+                .anyMatch(service -> service.getName().equals(serviceName));
+        if (exists) throw new DetailsAlreadyInUseException("Service with name " + serviceName + " already exists");
     }
 
     private Organization getAuthenticatedOrg() {
