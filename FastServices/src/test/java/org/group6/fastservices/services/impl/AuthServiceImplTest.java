@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,7 +58,7 @@ class AuthServiceImplTest {
                             authToken.getPrincipal(), authToken.getCredentials(), List.of()
                     );
                 });
-        when(jwtTokenProvider.generateToken(any()))
+        when(jwtTokenProvider.generateToken(any(Authentication.class)))
                 .thenReturn("mock-jwt-token");
     }
     @AfterEach
