@@ -17,11 +17,22 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        return null;
+        String usernameOrEmailorCode = authentication.getName();
+        String password = authentication.getCredentials().toString();
+
+
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
         return false;
+    }
+
+    private Role parseUserRole(String role) {
+        try {
+            return Role.valueOf(role.trim().toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            throw new InvalidRoleException("Invalid role: " + role);
+        }
     }
 }
