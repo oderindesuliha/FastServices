@@ -29,6 +29,7 @@ class OfferingServiceImplTest {
     void testThatOrgCanCreateService() {
         CreateServiceResponse response = createService();
         assertTrue(response.isSuccess());
+        assertEquals("Undergraduate clearance", response.getName());
     }
 
 

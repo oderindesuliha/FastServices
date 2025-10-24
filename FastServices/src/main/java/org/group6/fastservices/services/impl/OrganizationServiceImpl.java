@@ -36,7 +36,6 @@ public class OrganizationServiceImpl implements OrganizationService {
     public RegisterOrgResponse registerOrganization(RegisterOrgRequest register) {
         verifyNewEmail(register.getContactEmail());
         verifyNewPhone(register.getContactPhone());
-
         Organization org = modelMapper.map(register, Organization.class);
 
         org.setCode(generateUniqueOrgCode());
@@ -47,8 +46,6 @@ public class OrganizationServiceImpl implements OrganizationService {
         Organization organization = organizationRepository.save(org);
         return new RegisterOrgResponse("Organization registered successfully", organization.getCode(), true);
     }
-
-
 
     private void verifyNewEmail(String email) {
         if (organizationRepository.existsByContactEmail(email))

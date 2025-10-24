@@ -39,7 +39,6 @@ public class OfferingServiceImpl implements OfferingService {
 
         organization.getServices().add(service);
         organizationRepository.save(organization);
-
         return new CreateServiceResponse(service.getName(), "Added successfully", true);
     }
 
