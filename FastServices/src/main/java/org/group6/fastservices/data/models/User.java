@@ -6,120 +6,66 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-public class User implements UserDetails {
-  @Id
-   @GeneratedValue(strategy = GenerationType.UUID)
-   private String id;
+public class User {
 
-   @NotBlank
-   @Column(name = "first_name")
-   private String firstName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
-   @NotBlank
-   @Column(name = "last_name")
-   private String lastName;
+    @NotBlank
+    @Column(name = "first_name")
+    private String firstName;
 
-   @Email
-   @NotBlank
-   @Column(unique = true)
-   private String email;
+    @NotBlank
+    @Column(name = "last_name")
+    private String lastName;
 
-   @NotBlank
-   private String password;
+    @Email
+    @NotBlank
+    @Column(unique = true)
+    private String email;
 
-   @NotBlank
-   private String phone;
+    @NotBlank
+    private String password;
 
-   @NotBlank
-   private String roles;
+    @NotBlank
+    private String phone;
 
-   @CreationTimestamp
-   @Column(name = "created_at")
-   private LocalDateTime createdAt;
-   
-   @UpdateTimestamp
-   @Column(name = "updated_at")
-   private LocalDateTime updatedAt;
-   
-   @Override
-   public Collection<? extends GrantedAuthority> getAuthorities() {
-       if (roles == null || roles.isEmpty()) {
-           return new ArrayList<>();
-       }
-       return Arrays.stream(roles.split(","))
-               .map(String::trim)
-               .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-               .collect(Collectors.toList());
-   }
+    @NotBlank
+    private String roles;
 
-   @Override
-   public String getUsername() {
-       return email;
-   }
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-   @Override
-   public boolean isAccountNonExpired() {
-       return true;
-   }
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-   @Override
-public boolean isAccountNonLocked() {
-       return true;
-   }
-
-   @Override
-   public boolean isCredentialsNonExpired() {
-       return true;
-   }
-
-   @Override
-   public boolean isEnabled() {
-       return true;
-   }
-   
-   public void setRoles(Set<Role> roleSet) {
-       StringBuilder rolesBuilder = new StringBuilder();
-       boolean first = true;
-       for (Role role : roleSet) {
-           if (!first) {
-               rolesBuilder.append(",");
-           }
-           rolesBuilder.append(role.name());
-           first = false;
-       }
-       this.roles = rolesBuilder.toString();
+    public void setRoles(Set<Role> roleSet) {
+        this.roles = String.join(",",
+                roleSet.stream().map(Enum::name).toList()
+        );
     }
 
-   public void setRoles(String roles) {
-       this.roles = roles;
-   }
-
-   public Set<Role> getRolesAsSet() {
-       if (roles == null || roles.isEmpty()) {
-           return new HashSet<>();
-       }
-
-       Set<Role> roleSet = new HashSet<>();
-       String[] roleArray = roles.split(",");
-       for (String role : roleArray) {
-           try {
-               roleSet.add(Role.valueOf(role.trim()));
-           } catch (IllegalArgumentException e) {
-           }
-       }
-       return roleSet;
-   }
+    public Set<Role> getRolesAsSet() {
+        if (roles == null || roles.isEmpty()) return new HashSet<>();
+        Set<Role> roleSet = new HashSet<>();
+        for (String role : roles.split(",")) {
+            try {
+                roleSet.add(Role.valueOf(role.trim()));
+            } catch (IllegalArgumentException ignored) {}
+        }
+        return roleSet;
+    }
 }

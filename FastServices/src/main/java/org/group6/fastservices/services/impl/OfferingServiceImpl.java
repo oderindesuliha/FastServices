@@ -8,6 +8,7 @@ import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.responses.CreateServiceResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
+import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.OfferingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,10 +55,26 @@ public class OfferingServiceImpl implements OfferingService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth == null || !auth.isAuthenticated()) throw new RuntimeException("Unauthenticated access");
 
-        var orgDetails = (Organization) auth.getPrincipal();
-        return organizationRepository.findByCode(orgDetails.getCode())
+        var orgDetails = (AuthenticatedPrincipal) auth.getPrincipal();
+        return organizationRepository.findByCode(.getCode())
                 .orElseThrow(()-> new DetailsAlreadyInUseException("Authenticated organization not found"));
     }
 
+    private Organization getAuthenticatedOrg() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new RuntimeException("Unauthenticated access");
+        }
+
+        var principal = (AuthenticatedPrincipal) auth.getPrincipal();
+
+        if (!principal.isOrganizationAccount()) {
+            throw new AccessDeniedException("Only organizations can access this resource");
+        }
+
+        return organizationRepository.findByCode(principal.getUsername())
+                .orElseThrow(() -> new DetailsAlreadyInUseException("Authenticated organization not found"));
+    }
 
 }
