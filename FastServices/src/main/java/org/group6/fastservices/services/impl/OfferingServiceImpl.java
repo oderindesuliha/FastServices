@@ -56,16 +56,11 @@ public class OfferingServiceImpl implements OfferingService {
         if(auth == null || !auth.isAuthenticated()) throw new RuntimeException("Unauthenticated access");
 
         var orgDetails = (AuthenticatedPrincipal) auth.getPrincipal();
-        return organizationRepository.findByCode(.getCode())
+        if(!orgDetails.isOrganizationAccount()) throw new Acc
+        return organizationRepository.findByCode(orgDetails.getUsername())
                 .orElseThrow(()-> new DetailsAlreadyInUseException("Authenticated organization not found"));
     }
 
-    private Organization getAuthenticatedOrg() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (auth == null || !auth.isAuthenticated()) {
-            throw new RuntimeException("Unauthenticated access");
-        }
 
         var principal = (AuthenticatedPrincipal) auth.getPrincipal();
 
