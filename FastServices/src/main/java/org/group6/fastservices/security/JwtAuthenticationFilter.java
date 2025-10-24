@@ -29,12 +29,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = getTokenFromRequest(request);
 
-        if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
+        if (token != null && jwtTokenProvider.validateToken(token)) {
             String username = jwtTokenProvider.getUsername(token);
-            String roleClaim = String.valueOf(jwtTokenProvider.extractRole(token));
+            Role roleClaim = jwtTokenProvider.extractRole(token);
 
-            Role role = Role.valueOf(roleClaim.toUpperCase());
-            var userDetailsService = customServiceResolver.getServiceForRole(role);
+            var userDetailsService = customServiceResolver.getServiceForRole(roleClaim);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authenticationToken =
