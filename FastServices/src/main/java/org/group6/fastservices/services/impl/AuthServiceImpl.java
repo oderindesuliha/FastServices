@@ -67,12 +67,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(LoginRequest request) {
         Role role = parseUserRole(request.getRole());
-        UserDetailsService service = customServiceResolver.getServiceForRole(role);
-        UserDetails userDetails = service.loadUserByUsername(request.getIdentifier());
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDetails.getUsername(), request.getPassword())
-        );
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(
+                        request.getIdentifier(),
+                        request.getPassword()
+                );
+        authToken.setDetails(role.name());
+
+        Authentication authentication = authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtTokenProvider.generateToken(authentication);
