@@ -33,7 +33,7 @@ class OrganizationServiceImplTest {
         orgRepository.deleteAll();
     }
 
-    @WithMockUser(username="admin", roles = {"ADMIN"})
+    @WithMockUser(roles = {"ADMIN"})
     @Test
     void testCanRegisterOrganization() {
         RegisterOrgResponse response = registerOrganization();
