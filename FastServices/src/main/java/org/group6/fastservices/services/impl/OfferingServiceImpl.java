@@ -7,6 +7,7 @@ import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.responses.CreateServiceResponse;
+import org.group6.fastservices.exceptions.AccessDeniedException;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.OfferingService;
@@ -56,20 +57,8 @@ public class OfferingServiceImpl implements OfferingService {
         if(auth == null || !auth.isAuthenticated()) throw new RuntimeException("Unauthenticated access");
 
         var orgDetails = (AuthenticatedPrincipal) auth.getPrincipal();
-        if(!orgDetails.isOrganizationAccount()) throw new Acc
+        if(!orgDetails.isOrganizationAccount()) throw new AccessDeniedException("Access not granted");
         return organizationRepository.findByCode(orgDetails.getUsername())
                 .orElseThrow(()-> new DetailsAlreadyInUseException("Authenticated organization not found"));
     }
-
-
-        var principal = (AuthenticatedPrincipal) auth.getPrincipal();
-
-        if (!principal.isOrganizationAccount()) {
-            throw new AccessDeniedException("Only organizations can access this resource");
-        }
-
-        return organizationRepository.findByCode(principal.getUsername())
-                .orElseThrow(() -> new DetailsAlreadyInUseException("Authenticated organization not found"));
-    }
-
 }
