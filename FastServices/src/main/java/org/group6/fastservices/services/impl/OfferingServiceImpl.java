@@ -11,6 +11,7 @@ import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.services.OfferingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class OfferingServiceImpl implements OfferingService {
 
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public CreateServiceResponse createOffering(CreateServiceRequest request) {
         Organization organization = getAuthenticatedOrg();
         validateDuplicateServiceName(organization, request.getName());
