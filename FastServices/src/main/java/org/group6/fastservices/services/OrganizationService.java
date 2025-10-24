@@ -13,24 +13,3 @@ public interface OrganizationService {
 //    Organization updateOrganization(String id, Organization organization);
 //    void deleteOrganization(String id);
 }
-
-
-
-@Bean
-SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                        CustomAuthenticationProvider authProvider,
-                                        JwtAuthenticationFilter jwtFilter) throws Exception {
-
-    http.csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/auth/**").permitAll()
-                    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                    .anyRequest().authenticated()
-            )
-            .authenticationProvider(authProvider)
-            .sessionManagement(session -> session
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-    return http.build();
-}
