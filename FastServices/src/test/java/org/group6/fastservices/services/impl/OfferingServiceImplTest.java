@@ -1,6 +1,5 @@
 package org.group6.fastservices.services.impl;
 
-import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateServiceRequest;
@@ -18,7 +17,9 @@ class OfferingServiceImplTest {
 
     @Autowired
     private OfferingServiceImpl offeringService;
+    @Autowired
     private OrganizationRepository organizationRepository;
+    @Autowired
     private OfferingRepository offeringRepository;
 
     @BeforeEach
@@ -33,8 +34,6 @@ class OfferingServiceImplTest {
         assertTrue(response.isSuccess());
         assertEquals("Undergraduate clearance", response.getName());
     }
-
-
 
     private CreateServiceResponse createService() {
         CreateServiceRequest createService = new CreateServiceRequest();
