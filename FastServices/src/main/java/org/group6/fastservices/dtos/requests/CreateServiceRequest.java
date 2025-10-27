@@ -12,17 +12,3 @@ public class CreateServiceRequest {
     private int duration;
 }
 
-
-//Organization org = organizationRepository.findByContactEmail(orgEmail)
-//        .orElseThrow(() -> new ResourceNotFoundException("Organization not found"));
-//
-//Offering offering = new Offering();
-//    offering.setName(request.getName());
-//        offering.setDescription(request.getDescription());
-//        offering.setEstimatedWaitTime(request.getEstimatedWaitTime());
-//        offering.setDuration(request.getDuration());
-//        offering.setOrganization(org);
-//
-//    offeringRepository.save(offering);
-//
-//    return new CreateServiceResponse("Service created successfully", true);

@@ -3,7 +3,6 @@ package org.group6.fastservices.services.impl;
 import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Offering;
 import org.group6.fastservices.data.models.Organization;
-import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.responses.CreateServiceResponse;
