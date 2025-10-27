@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Optional;
 
@@ -33,7 +32,6 @@ class OrganizationServiceImplTest {
         orgRepository.deleteAll();
     }
 
-    @WithMockUser(roles = {"ADMIN"})
     @Test
     void testCanRegisterOrganization() {
         RegisterOrgResponse response = registerOrganization();

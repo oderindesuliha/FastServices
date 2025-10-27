@@ -7,4 +7,5 @@ public interface OrganizationService {
     RegisterOrgResponse registerOrganization(RegisterOrgRequest registerRequest);
 
 
+
 }

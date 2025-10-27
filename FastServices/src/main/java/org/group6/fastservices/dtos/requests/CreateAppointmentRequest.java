@@ -6,7 +6,7 @@ import org.group6.fastservices.data.models.AppointmentStatus;
 import java.time.LocalDateTime;
 
 @Data
-public class AppointmentRequest {
+public class CreateAppointmentRequest {
     private String userId;
     private String offeringId;
     private String queueId;
