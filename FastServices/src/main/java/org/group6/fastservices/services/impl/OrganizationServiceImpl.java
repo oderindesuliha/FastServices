@@ -1,21 +1,14 @@
 package org.group6.fastservices.services.impl;
 
 import lombok.AllArgsConstructor;
-import org.group6.fastservices.data.models.Offering;
 import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.models.Role;
-import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
-import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.requests.RegisterOrgRequest;
-import org.group6.fastservices.dtos.responses.CreateServiceResponse;
 import org.group6.fastservices.dtos.responses.RegisterOrgResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.services.OrganizationService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
