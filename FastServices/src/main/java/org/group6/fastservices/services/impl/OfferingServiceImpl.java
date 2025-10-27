@@ -7,6 +7,7 @@ import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.responses.CreateServiceResponse;
 import org.group6.fastservices.exceptions.AccessDeniedException;
+import org.group6.fastservices.exceptions.AccountNotFoundException;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.OfferingService;
@@ -54,6 +55,6 @@ public class OfferingServiceImpl implements OfferingService {
         var orgDetails = (AuthenticatedPrincipal) auth.getPrincipal();
         if(!orgDetails.isOrganizationAccount()) throw new AccessDeniedException("Access not granted");
         return organizationRepository.findByCode(orgDetails.getUsername())
-                .orElseThrow(()-> new DetailsAlreadyInUseException("Authenticated organization not found"));
+                .orElseThrow(()-> new AccountNotFoundException("Authenticated organization not found"));
     }
 }
