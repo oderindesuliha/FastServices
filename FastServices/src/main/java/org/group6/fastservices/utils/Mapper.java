@@ -46,10 +46,10 @@ public class Mapper {
         return queueResponse;
     }
     
-    public static AppointmentResponse mapToAppointmentResponse(Appointment appointment) {
+    public static CreateAppointmentResponse mapToAppointmentResponse(Appointment appointment) {
         if (appointment == null) return null;
         
-        AppointmentResponse appointmentResponse = new AppointmentResponse();
+        CreateAppointmentResponse appointmentResponse = new CreateAppointmentResponse();
         BeanUtils.copyProperties(appointment, appointmentResponse);
         if (appointment.getUser() != null) {
             appointmentResponse.setUserId(appointment.getUser().getId());

@@ -15,5 +15,5 @@ public class OfferingResponse {
     private String organizationId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<AppointmentResponse> appointments;
+    private List<CreateAppointmentResponse> appointments;
 }
