@@ -1,6 +1,5 @@
 package org.group6.fastservices.dtos.requests;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

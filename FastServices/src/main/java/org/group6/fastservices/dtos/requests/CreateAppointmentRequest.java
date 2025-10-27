@@ -1,11 +1,13 @@
 package org.group6.fastservices.dtos.requests;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.group6.fastservices.data.models.AppointmentStatus;
 
 import java.time.LocalDateTime;
 
-@Data
+@Setter
+@Getter
 public class CreateAppointmentRequest {
     private String userId;
     private String offeringId;
