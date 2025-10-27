@@ -1,6 +1,5 @@
 package org.group6.fastservices.data.repositories;
 
-import lombok.RequiredArgsConstructor;
 import org.group6.fastservices.data.models.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
