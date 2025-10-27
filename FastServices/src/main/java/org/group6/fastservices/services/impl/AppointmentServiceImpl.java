@@ -7,9 +7,7 @@ import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
-import org.group6.fastservices.exceptions.AccessDeniedException;
-import org.group6.fastservices.exceptions.AccountNotFoundException;
-import org.group6.fastservices.exceptions.ResourceNotFoundException;
+import org.group6.fastservices.exceptions.*;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.AppointmentService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -85,7 +83,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         if(customer.isOrganizationAccount()) throw new AccessDeniedException("Access not granted");
         return customerRepository.findCustomerByEmail(customer.getUsername())
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
-
     }
 
 }
