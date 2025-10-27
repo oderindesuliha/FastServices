@@ -29,10 +29,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationRepository organizationRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
-    private final OfferingRepository offeringRepository;
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
     public RegisterOrgResponse registerOrganization(RegisterOrgRequest register) {
         verifyNewEmail(register.getContactEmail());
         verifyNewPhone(register.getContactPhone());
