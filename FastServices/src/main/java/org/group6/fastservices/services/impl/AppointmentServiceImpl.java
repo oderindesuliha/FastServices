@@ -3,6 +3,8 @@ package org.group6.fastservices.services.impl;
 import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Appointment;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
+import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
+import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.exceptions.ResourceNotFoundException;
 import org.group6.fastservices.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     private AppointmentRepository appointmentRepository;
     
     @Override
-    public Appointment createAppointment(Appointment appointment) {
+    public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
 
-        return appointmentRepository.save(appointment);
+        return null;
     }
     
     @Override
