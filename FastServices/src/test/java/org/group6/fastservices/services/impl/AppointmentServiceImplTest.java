@@ -26,7 +26,10 @@ class AppointmentServiceImplTest {
     }
 
     private CreateAppointmentResponse createAppointment() {
-
+        CreateAppointmentRequest request = new CreateAppointmentRequest();
+        request.setAppointmentDate(Local);
+        Local
+        return null;
     }
 
 }
