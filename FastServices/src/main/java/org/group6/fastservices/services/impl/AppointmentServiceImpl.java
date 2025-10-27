@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Appointment;
 import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
-import org.group6.fastservices.data.repositories.UserRepository;
+import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.exceptions.AccessDeniedException;
+import org.group6.fastservices.exceptions.AccountNotFoundException;
 import org.group6.fastservices.exceptions.ResourceNotFoundException;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.AppointmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +24,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
 
-    private final UserRepository userRepository;
+    private final CustomerRepository customerRepository;
     private AppointmentRepository appointmentRepository;
     
     @Override
@@ -83,8 +83,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         var customer = (AuthenticatedPrincipal) auth.getPrincipal();
         if(customer.isOrganizationAccount()) throw new AccessDeniedException("Access not granted");
-        return userRepository.findByEmail(customer.getUsername())
-                .orElseThrow(()-> new)
+        return customerRepository.findCustomerByEmail(customer.getUsername())
+                .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
 
     }
 
