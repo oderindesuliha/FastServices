@@ -1,5 +1,6 @@
 package org.group6.fastservices.services.impl;
 
+import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Appointment;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.exceptions.ResourceNotFoundException;
@@ -11,13 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
     
-    @Autowired
     private AppointmentRepository appointmentRepository;
     
     @Override
     public Appointment createAppointment(Appointment appointment) {
+
         return appointmentRepository.save(appointment);
     }
     
