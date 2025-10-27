@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class AppointmentResponse {
+    private String userId;
     private String offeringId;
     private String queueId;
     private LocalDateTime appointmentDate;
