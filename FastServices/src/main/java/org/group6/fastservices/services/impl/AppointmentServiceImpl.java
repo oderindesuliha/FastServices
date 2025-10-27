@@ -2,6 +2,7 @@ package org.group6.fastservices.services.impl;
 
 import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Appointment;
+import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
@@ -9,6 +10,8 @@ import org.group6.fastservices.exceptions.ResourceNotFoundException;
 import org.group6.fastservices.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,10 +26,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @PreAuthorize("hasRole('CUSTOMER')")
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
+        Customer customer = getAuthenticatedCustomer();
 
         return null;
     }
-    
+
+
+
     @Override
     public Appointment getAppointmentById(String id) {
         Optional<Appointment> appointment = appointmentRepository.findById(id);
@@ -66,4 +72,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void deleteAppointment(String id) {
         appointmentRepository.deleteById(id);
     }
+
+    private Customer getAuthenticatedCustomer() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null || !auth.isAuthenticated()) {}
+    }
+
 }
