@@ -1,6 +1,7 @@
 package org.group6.fastservices.services.impl;
 
 import org.group6.fastservices.data.models.Appointment;
+import org.group6.fastservices.data.models.AppointmentStatus;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,11 +25,14 @@ class AppointmentServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        appointmentRepository.deleteAll();
 
     }
 
     @AfterEach
-    void tearDown() {}
+    void tearDown() {
+        appointmentRepository.deleteAll();
+    }
 
     @Test
     void testCanCreateAppointment() {
@@ -35,9 +41,10 @@ class AppointmentServiceImplTest {
 
     private CreateAppointmentResponse createAppointment() {
         CreateAppointmentRequest request = new CreateAppointmentRequest();
-        request.setAppointmentDate(Local);
-        Local
-        return null;
+        request.setAppointmentDate(LocalDateTime.of(2025, 11, 16, 5, 30));
+        request.setStatus(AppointmentStatus.PENDING);
+
+        return appointmentService.createAppointment(request);
     }
 
 }
