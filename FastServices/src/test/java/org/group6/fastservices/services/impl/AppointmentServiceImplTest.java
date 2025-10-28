@@ -37,7 +37,7 @@ class AppointmentServiceImplTest {
     @Test
     void testCanCreateAppointment() {
         CreateAppointmentResponse response  =  createAppointment();
-        assertTrue(response.);
+        assertTrue(response.isSuccess());
     }
 
     private CreateAppointmentResponse createAppointment() {
