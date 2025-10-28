@@ -42,8 +42,6 @@ class OrganizationServiceImplTest {
         assertTrue(response.isSuccess());
     }
 
-
-
     private RegisterOrgResponse registerOrganization() {
         RegisterOrgRequest register = new RegisterOrgRequest();
         register.setName("YabaTech");
@@ -53,5 +51,4 @@ class OrganizationServiceImplTest {
 
         return orgService.registerOrganization(register);
     }
-
 }
