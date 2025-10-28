@@ -23,7 +23,7 @@ import java.util.Optional;
 public class AppointmentServiceImpl implements AppointmentService {
 
     private final CustomerRepository customerRepository;
-    private AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
     
     @Override
     @PreAuthorize("hasRole('CUSTOMER')")
