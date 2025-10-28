@@ -17,4 +17,6 @@ public class CreateAppointmentResponse {
     private int queuePosition;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String message;
+    private boolean success;
 }
