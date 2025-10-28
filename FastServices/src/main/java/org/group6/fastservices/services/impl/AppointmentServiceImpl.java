@@ -34,7 +34,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
 
-
     @Override
     public Appointment getAppointmentById(String id) {
         Optional<Appointment> appointment = appointmentRepository.findById(id);
