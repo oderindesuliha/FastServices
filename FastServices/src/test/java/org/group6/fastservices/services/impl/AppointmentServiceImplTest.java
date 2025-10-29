@@ -4,6 +4,7 @@ import org.group6.fastservices.data.models.Appointment;
 import org.group6.fastservices.data.models.AppointmentStatus;
 import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
+import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.requests.RegisterUserRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
@@ -29,16 +30,21 @@ class AppointmentServiceImplTest {
     @Autowired
     private AppointmentRepository appointmentRepository;
     @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
 
     @BeforeEach
     void setUp() {
         appointmentRepository.deleteAll();
+        customerRepository.deleteAll();
 
     }
 
     @AfterEach
     void tearDown() {
         appointmentRepository.deleteAll();
+        customerRepository.deleteAll();
     }
 
     @Test
@@ -64,7 +70,7 @@ class AppointmentServiceImplTest {
         org.setPassword("password");
         org.setRole("ORGANIZATION");
 
-        var savedOrg = organizationRepository.save(org);
+        var savedOrg = customerRepository.save(org);
         AuthenticatedPrincipal principal = new AuthenticatedPrincipal(savedOrg);
 
         UsernamePasswordAuthenticationToken auth =
