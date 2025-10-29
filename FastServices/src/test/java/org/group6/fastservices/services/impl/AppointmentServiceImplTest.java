@@ -1,14 +1,11 @@
 package org.group6.fastservices.services.impl;
 
-import org.group6.fastservices.data.models.Appointment;
 import org.group6.fastservices.data.models.AppointmentStatus;
-import org.group6.fastservices.data.models.Organization;
+import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
-import org.group6.fastservices.dtos.requests.RegisterUserRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
-import org.group6.fastservices.dtos.responses.RegisterUserResponse;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,8 +28,6 @@ class AppointmentServiceImplTest {
     private AppointmentRepository appointmentRepository;
     @Autowired
     private CustomerRepository customerRepository;
-
-    @Autowired
 
     @BeforeEach
     void setUp() {
@@ -62,16 +57,16 @@ class AppointmentServiceImplTest {
     }
 
     private void mockCustomerAuthentication() {
-        Organization org = new Organization();
-        org.setName("YabaTech");
-        org.setCode("YAB001");
-        org.setContactEmail("org@mail.com");
-        org.setContactPhone("08012345678");
-        org.setPassword("password");
-        org.setRole("ORGANIZATION");
+        Customer customer = new Customer();
+        customer.setFirstName("Alade");
+        customer.setLastName("Jimoh");
+        customer.setEmail("customer@mail.com");
+        customer.setPhone("08012345678");
+        customer.setPassword("password");
+        customer.setRoles("CUSTOMER");
 
-        var savedOrg = customerRepository.save(org);
-        AuthenticatedPrincipal principal = new AuthenticatedPrincipal(savedOrg);
+        var savedCustomer = customerRepository.save(customer);
+        AuthenticatedPrincipal principal = new AuthenticatedPrincipal(savedCustomer);
 
         UsernamePasswordAuthenticationToken auth =
                 new UsernamePasswordAuthenticationToken(
