@@ -5,6 +5,7 @@ import org.group6.fastservices.data.models.Appointment;
 import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
+import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.exceptions.*;
@@ -24,7 +25,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final CustomerRepository customerRepository;
     private final AppointmentRepository appointmentRepository;
-
+    private final OfferingRepository offeringRepository;
     
     @Override
     @PreAuthorize("hasRole('CUSTOMER')")
