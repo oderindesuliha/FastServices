@@ -41,7 +41,7 @@ class AppointmentServiceImplTest {
     void tearDown() {
         appointmentRepository.deleteAll();
         customerRepository.deleteAll();
-        mockCustomerAuthentication();
+        SecurityContextHolder.clearContext();
     }
 
     @Test
