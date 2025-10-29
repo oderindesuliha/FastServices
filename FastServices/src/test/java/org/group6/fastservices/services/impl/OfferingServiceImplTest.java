@@ -46,6 +46,8 @@ class OfferingServiceImplTest {
         CreateServiceResponse response = createService();
         assertTrue(response.isSuccess());
         assertEquals("Undergraduate clearance", response.getName());
+
+        boolean savedService = offeringRepository.findOfferingByName("Undergraduate clearance");
     }
 
     private CreateServiceResponse createService() {
