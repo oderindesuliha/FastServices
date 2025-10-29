@@ -1,5 +1,6 @@
 package org.group6.fastservices.services.impl;
 
+import org.group6.fastservices.data.models.Offering;
 import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
@@ -47,7 +48,7 @@ class OfferingServiceImplTest {
         assertTrue(response.isSuccess());
         assertEquals("Undergraduate clearance", response.getName());
 
-        boolean savedService = offeringRepository.findOfferingByName("Undergraduate clearance");
+        Optional<Offering> savedService = offeringRepository.findOfferingByName("Undergraduate clearance");
     }
 
     private CreateServiceResponse createService() {
