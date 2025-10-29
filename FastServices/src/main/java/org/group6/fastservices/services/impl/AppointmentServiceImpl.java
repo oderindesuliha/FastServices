@@ -24,11 +24,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final CustomerRepository customerRepository;
     private final AppointmentRepository appointmentRepository;
+
     
     @Override
     @PreAuthorize("hasRole('CUSTOMER')")
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
+
 
         return null;
     }
@@ -83,5 +85,4 @@ public class AppointmentServiceImpl implements AppointmentService {
         return customerRepository.findCustomerByEmail(customer.getUsername())
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
     }
-
 }
