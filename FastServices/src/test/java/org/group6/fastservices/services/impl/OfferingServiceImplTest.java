@@ -15,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -49,6 +51,8 @@ class OfferingServiceImplTest {
         assertEquals("Undergraduate clearance", response.getName());
 
         Optional<Offering> savedService = offeringRepository.findOfferingByName("Undergraduate clearance");
+        assertTrue(savedService.isPresent());
+        assertEquals("Undergraduate clearance", savedService.get().getName());
     }
 
     private CreateServiceResponse createService() {
