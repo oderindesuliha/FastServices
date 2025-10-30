@@ -1,20 +1,6 @@
 package org.group6.fastservices.controllers;
 
-import org.group6.fastservices.data.models.Queue;
-import org.group6.fastservices.dtos.requests.QueueRequest;
-import org.group6.fastservices.dtos.responses.ErrorResponse;
-import org.group6.fastservices.dtos.responses.QueueResponse;
-import org.group6.fastservices.services.QueueService;
-import org.group6.fastservices.utils.Mapper;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/queues")
