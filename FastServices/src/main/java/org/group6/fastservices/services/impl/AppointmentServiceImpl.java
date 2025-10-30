@@ -1,10 +1,7 @@
 package org.group6.fastservices.services.impl;
 
 import lombok.AllArgsConstructor;
-import org.group6.fastservices.data.models.Appointment;
-import org.group6.fastservices.data.models.AppointmentStatus;
-import org.group6.fastservices.data.models.Customer;
-import org.group6.fastservices.data.models.Offering;
+import org.group6.fastservices.data.models.*;
 import org.group6.fastservices.data.repositories.*;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
@@ -29,12 +26,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final OfferingRepository offeringRepository;
     private final ModelMapper modelMapper;
+    private final QueueRepository queueRepository;
 
     @Override
     @PreAuthorize("hasRole('CUSTOMER')")
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
         Optional <Offering> offering = offeringRepository.findOfferingByName(request.getOfferingName());
+        Queue newQueue = queueRepository.f
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setStatus(AppointmentStatus.PENDING);
