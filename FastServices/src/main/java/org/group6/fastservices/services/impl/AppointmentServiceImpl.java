@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Appointment;
 import org.group6.fastservices.data.models.AppointmentStatus;
 import org.group6.fastservices.data.models.Customer;
+import org.group6.fastservices.data.models.Offering;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.data.repositories.OfferingRepository;
@@ -35,11 +36,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     @PreAuthorize("hasRole('CUSTOMER')")
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
+        Offering offering = offeringRepository.findOfferingByName(requet.getO);
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setAppointmentDate(request.getAppointmentDate());
         appointment.setStatus(AppointmentStatus.PENDING);
         appointment.setCreatedAt(LocalDateTime.now());
+
+
+
+
 
 
         return null;
