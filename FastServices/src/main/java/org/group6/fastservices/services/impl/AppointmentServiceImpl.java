@@ -11,6 +11,7 @@ import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.exceptions.*;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.AppointmentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,11 +27,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final CustomerRepository customerRepository;
     private final AppointmentRepository appointmentRepository;
     private final OfferingRepository offeringRepository;
-    
+    private final ModelMapper modelMapper;
+
     @Override
     @PreAuthorize("hasRole('CUSTOMER')")
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
+
+        Appointment appointment = modelMapper
 
 
         return null;
@@ -85,5 +89,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         if(customer.isOrganizationAccount()) throw new AccessDeniedException("Access not granted");
         return customerRepository.findCustomerByEmail(customer.getUsername())
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
+    }
+
+    private void validateDuplicateAppointmentFromACustomer(Customer customer, ) {
+//        var appointment = appointmentRepository.findByOfferingName();
     }
 }
