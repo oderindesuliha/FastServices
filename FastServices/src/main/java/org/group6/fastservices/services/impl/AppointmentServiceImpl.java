@@ -46,11 +46,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         if(offering.isEmpty()) throw new OfferingNotFoundException("Service not found");
         offering.get().getAppointments().add(appointment);
+        offeringRepository.save(offering.get());
 
-
-
-
-        return null;
+        return new CreateAppointmentResponse("");
     }
 
 

@@ -53,7 +53,6 @@ class AppointmentServiceImplTest {
     private CreateAppointmentResponse createAppointment() {
         CreateAppointmentRequest request = new CreateAppointmentRequest();
         request.setAppointmentDate(LocalDateTime.of(2025, 11, 16, 5, 30));
-        request.setStatus(AppointmentStatus.PENDING);
 
         return appointmentService.createAppointment(request);
     }
