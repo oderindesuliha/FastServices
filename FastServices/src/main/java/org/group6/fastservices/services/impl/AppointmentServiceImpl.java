@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.management.ServiceNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -36,14 +37,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     @PreAuthorize("hasRole('CUSTOMER')")
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
-        Offering offering = offeringRepository.findOfferingByName(requet.getO);
+        Optional <Offering> offering = offeringRepository.findOfferingByName(request.getOfferingName());
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setAppointmentDate(request.getAppointmentDate());
         appointment.setStatus(AppointmentStatus.PENDING);
         appointment.setCreatedAt(LocalDateTime.now());
 
-
+        if(!offering.isPresent()) throw new ServiceNotFoundException("Service not found");
+        offering.get().getAppointments().add(appointment);
 
 
 
