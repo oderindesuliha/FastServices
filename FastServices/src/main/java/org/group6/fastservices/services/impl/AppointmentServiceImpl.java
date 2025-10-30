@@ -44,7 +44,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setStatus(AppointmentStatus.PENDING);
         appointment.setCreatedAt(LocalDateTime.now());
 
-        if(!offering.isPresent()) throw new ServiceNotFoundException("Service not found");
+        if(offering.isEmpty()) throw new OfferingNotFoundException("Service not found");
         offering.get().getAppointments().add(appointment);
 
 
@@ -104,7 +104,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
     }
 
-    private void validateDuplicateAppointmentFromACustomer(Customer customer, ) {
+    private void validateDuplicateAppointmentFromACustomer(Customer customer ) {
 //        var appointment = appointmentRepository.findByOfferingName();
     }
 }
