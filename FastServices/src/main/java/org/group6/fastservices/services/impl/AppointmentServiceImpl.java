@@ -2,6 +2,7 @@ package org.group6.fastservices.services.impl;
 
 import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Appointment;
+import org.group6.fastservices.data.models.AppointmentStatus;
 import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
@@ -37,6 +38,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setAppointmentDate(request.getAppointmentDate());
+        appointment.setStatus(AppointmentStatus.PENDING);
+        appointment.setCreatedAt(LocalDateTime.now());
 
 
         return null;

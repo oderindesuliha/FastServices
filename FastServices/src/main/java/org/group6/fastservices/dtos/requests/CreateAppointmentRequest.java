@@ -13,5 +13,4 @@ public class CreateAppointmentRequest {
     private String offeringName;
     private String queueId;
     private LocalDateTime appointmentDate;
-    private AppointmentStatus status;
 }
