@@ -5,9 +5,7 @@ import org.group6.fastservices.data.models.Appointment;
 import org.group6.fastservices.data.models.AppointmentStatus;
 import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.models.Offering;
-import org.group6.fastservices.data.repositories.AppointmentRepository;
-import org.group6.fastservices.data.repositories.CustomerRepository;
-import org.group6.fastservices.data.repositories.OfferingRepository;
+import org.group6.fastservices.data.repositories.*;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.exceptions.*;
@@ -19,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.management.ServiceNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
