@@ -40,7 +40,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         Optional <Offering> offering = offeringRepository.findOfferingByName(request.getOfferingName());
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
-        appointment.setAppointmentDate(request.getAppointmentDate());
         appointment.setStatus(AppointmentStatus.PENDING);
         appointment.setCreatedAt(LocalDateTime.now());
 
@@ -48,7 +47,14 @@ public class AppointmentServiceImpl implements AppointmentService {
         offering.get().getAppointments().add(appointment);
         offeringRepository.save(offering.get());
 
-        return new CreateAppointmentResponse("");
+        return new CreateAppointmentResponse(
+                appointment.getAppointmentDate(),
+                appointment.getStatus(),
+                1,
+                appointment.getCreatedAt(),
+                "Appointment created",
+                true
+                );
     }
 
 
