@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 public class CreateAppointmentRequest {
     private String userId;
-    private String offeringId;
+    private String offeringName;
     private String queueId;
     private LocalDateTime appointmentDate;
     private AppointmentStatus status;

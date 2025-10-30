@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
 
-        Appointment appointment = modelMapper
+        Appointment appointment = modelMapper.map(request, Appointment.class);
+        appointment.setAppointmentDate(request.getAppointmentDate());
 
 
         return null;
