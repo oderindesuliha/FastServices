@@ -25,7 +25,10 @@ public class Offering {
     @ManyToOne
     @JoinColumn(name = "organization_id")
     private Organization organization;
-    
+
+    @OneToOne(mappedBy = "offering", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Queue queue;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
