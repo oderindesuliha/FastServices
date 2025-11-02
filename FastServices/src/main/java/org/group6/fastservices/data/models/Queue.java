@@ -26,6 +26,10 @@ public class Queue {
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
+    @OneToOne
+    @JoinColumn(name = "offering_id")
+    private Offering offering;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp

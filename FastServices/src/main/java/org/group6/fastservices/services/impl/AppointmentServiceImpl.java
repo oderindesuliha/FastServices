@@ -33,7 +33,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
         Optional <Offering> offering = offeringRepository.findOfferingByName(request.getOfferingName());
-        Optional <Queue> newQueue = queueRepository.findByOfferingName(request.getOfferingName());
+//        Optional <Queue> newQueue = queueRepository.findByOfferingName(request.getOfferingName());
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setStatus(AppointmentStatus.PENDING);
