@@ -54,7 +54,7 @@ class QueueServiceImplTest {
                 offering.getId(),
                 offering.getName(),
                 organization.getId(),
-                organization.getName()
+                organization.getCode()
         );
     }
 

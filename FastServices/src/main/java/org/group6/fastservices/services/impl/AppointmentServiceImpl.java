@@ -47,8 +47,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setStatus(AppointmentStatus.PENDING);
         appointment.setCreatedAt(LocalDateTime.now());
 
-        offering.get().getAppointments().add(appointment);
-        offeringRepository.save(offering.get());
+//        offering.get().getAppointments().add(appointment);
+//        offeringRepository.save(offering.get());
 
         return new CreateAppointmentResponse(
                 appointment.getAppointmentDate(),
