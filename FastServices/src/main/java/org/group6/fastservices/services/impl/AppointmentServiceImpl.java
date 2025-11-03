@@ -8,6 +8,7 @@ import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.exceptions.*;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.AppointmentService;
+import org.group6.fastservices.services.QueueService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -26,20 +27,19 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final OfferingRepository offeringRepository;
     private final ModelMapper modelMapper;
-    private final QueueRepository queueRepository;
+    private final QueueService queueService;
 
     @Override
     @PreAuthorize("hasRole('CUSTOMER')")
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
-        Optional <Offering> offering = offeringRepository.findOfferingByName(request.getOfferingName());
-//        Optional <Queue> newQueue = queueRepository.findByOfferingName(request.getOfferingName());
+        Offering offering = offeringRepository.findOfferingByName(request.getOfferingName())
+                .orElseThrow(()-> new OfferingNotFoundException("Service not found: " + request.getOfferingName()));
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setStatus(AppointmentStatus.PENDING);
         appointment.setCreatedAt(LocalDateTime.now());
 
-        if(offering.isEmpty()) throw new OfferingNotFoundException("Service not found");
         offering.get().getAppointments().add(appointment);
         offeringRepository.save(offering.get());
 
