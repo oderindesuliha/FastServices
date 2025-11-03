@@ -8,6 +8,7 @@ import org.group6.fastservices.data.repositories.QueueRepository;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
 import org.group6.fastservices.services.QueueService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
