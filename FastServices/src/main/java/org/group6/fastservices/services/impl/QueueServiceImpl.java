@@ -23,6 +23,7 @@ public class QueueServiceImpl implements QueueService {
 
     @Override
     public CreateQueueResponse findOrCreateQueueForOffering(CreateQueueRequest request) {
+        List<Queue> existingQueues = queueRepository.findByOrganizationId(request.getOrganizationId());
         return null;
     }
 }
