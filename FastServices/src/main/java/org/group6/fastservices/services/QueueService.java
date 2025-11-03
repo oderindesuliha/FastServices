@@ -1,10 +1,7 @@
 package org.group6.fastservices.services;
 
-import org.group6.fastservices.data.models.Queue;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
-
-import java.util.List;
 
 public interface QueueService {
     CreateQueueResponse findOrCreateQueueForOffering(CreateQueueRequest request);
