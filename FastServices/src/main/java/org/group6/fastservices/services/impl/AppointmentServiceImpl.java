@@ -38,7 +38,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Offering offering = offeringRepository.findOfferingByName(request.getOfferingName())
                 .orElseThrow(()-> new OfferingNotFoundException("Service not found: " + request.getOfferingName()));
 
-        var queueRequest = new CreateQueueRequest(
+        CreateQueueRequest queueRequest = new CreateQueueRequest(
                 offering.getId(),
                 offering.getName(),
                 offering.getOrganization().getId(),
@@ -46,7 +46,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         );
         CreateQueueResponse queueResponse = queueService.findOrCreateQueueForOffering(queueRequest);
 
-        Queue queue = modelMapper.map(queueResponse, CreateQueueResponse.class)
+        Queue queue = modelMapper.map(queueResponse, Queue.class);
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setStatus(AppointmentStatus.PENDING);

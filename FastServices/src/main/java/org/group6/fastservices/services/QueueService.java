@@ -63,3 +63,5 @@ public interface QueueService {
 //            .build();
 //}
 
+int nextPosition = appointmentRepository.countByQueueId(queue.getId()) + 1;
+appointment.setQueuePosition(nextPosition);
