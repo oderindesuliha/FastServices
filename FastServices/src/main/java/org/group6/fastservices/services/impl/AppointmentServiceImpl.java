@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.*;
 import org.group6.fastservices.data.repositories.*;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
+import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.exceptions.*;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
@@ -35,6 +36,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         Customer customer = getAuthenticatedCustomer();
         Offering offering = offeringRepository.findOfferingByName(request.getOfferingName())
                 .orElseThrow(()-> new OfferingNotFoundException("Service not found: " + request.getOfferingName()));
+
+        var queueRequest = new CreateQueueRequest(
+                offering.getId(),
+                offering.getName(),
+                offering.getOrganization().getId(),
+                offering.getOrganization().getName());
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setStatus(AppointmentStatus.PENDING);

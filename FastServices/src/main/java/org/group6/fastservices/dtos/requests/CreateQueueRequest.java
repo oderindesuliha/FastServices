@@ -13,6 +13,6 @@ public class CreateQueueRequest {
     private String offeringId;
     private String offeringName;
     private String organizationId;
-    private String organizationName;
+    private String organizationCode;
 
 }
