@@ -11,4 +11,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, String
     List<Appointment> findByUserId(String userId);
     List<Appointment> findByOfferingId(String offeringId);
     List<Appointment> findByQueueId(String queueId);
+
+    int countByQueueId(String id);
 }

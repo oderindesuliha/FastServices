@@ -14,38 +14,6 @@ public interface QueueService {
 }
 
 
-//        Queue queue = modelMapper.map(queueResponse, Queue.class);
-//
-//        // 4️⃣ Determine next queue position
-//        int nextPosition = queue.getAppointments() == null ? 1 : queue.getAppointments().size() + 1;
-
-        // 5️⃣ Create and save appointment
-//        Appointment appointment = new Appointment();
-//        appointment.setUser(customer);
-//        appointment.setOffering(offering);
-//        appointment.setQueue(queue);
-//        appointment.setAppointmentDate(LocalDateTime.now());
-//        appointment.setStatus(AppointmentStatus.PENDING);
-//        appointment.setQueuePosition(nextPosition);
-//
-//        Appointment saved = appointmentRepository.save(appointment);
-//
-
-//
-//    CreateQueueResponse queueResponse = queueService.findOrCreateQueueForOffering(queueRequest);
-//
-//    // 4️⃣ Create and populate the appointment
-//    Appointment appointment = new Appointment();
-//    appointment.setAppointmentDate(request.getAppointmentDate());
-//    appointment.setStatus(AppointmentStatus.PENDING);
-//    appointment.setCreatedAt(LocalDateTime.now());
-//    appointment.setUser(customer);
-//    appointment.setOffering(offering);
-//
-//    // Link the queue (only by ID, no need to remap the full object)
-//    Queue queue = new Queue();
-//    queue.setId(queueResponse.getId());
-//    appointment.setQueue(queue);
 //
 //    // 5️⃣ Save appointment
 //    Appointment savedAppointment = appointmentRepository.save(appointment);
@@ -63,5 +31,3 @@ public interface QueueService {
 //            .build();
 //}
 
-int nextPosition = appointmentRepository.countByQueueId(queue.getId()) + 1;
-appointment.setQueuePosition(nextPosition);
