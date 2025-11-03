@@ -60,6 +60,12 @@ class QueueServiceImplTest {
         );
     }
 
+    @AfterEach
+    void tearDown() {
+        organizationRepository.deleteAll();
+        offeringRepository.deleteAll();
+    }
+
     @Test
     void testFindOrCreateQueue_createsNewQueue() {
         CreateQueueResponse response = queueService.findOrCreateQueueForOffering(request);
