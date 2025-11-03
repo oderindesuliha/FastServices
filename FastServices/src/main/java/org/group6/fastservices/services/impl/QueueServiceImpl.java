@@ -52,6 +52,11 @@ public class QueueServiceImpl implements QueueService {
         newQueue.setOffering(offering);
 
         newQueue.setCreatedAt(LocalDateTime.now());
-        return null;
+        Queue savedQueue = queueRepository.save(newQueue);
+        return modelMapper.map(savedQueue, CreateQueueResponse.class)
+                .toBuilder()
+                .newlyCreated(true)
+                .message("New queue created successfully")
+                .build();
     }
 }

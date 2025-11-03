@@ -16,36 +16,4 @@ public interface QueueService {
 //    void deleteQueue(String id);
 }
 
-//
-//        // Otherwise, create new queue
-//        Queue newQueue = new Queue();
-//        newQueue.setName(request.getOfferingName() + " Queue");
-//        newQueue.setDescription("Queue for " + request.getOfferingName());
-//
-//        Organization org = new Organization();
-//        org.setId(request.getOrganizationId());
-//        org.setName(request.getOrganizationName());
-//        newQueue.setOrganization(org);
-//
-//        Offering offering = new Offering();
-//        offering.setId(request.getOfferingId());
-//        offering.setName(request.getOfferingName());
-//        newQueue.setOffering(offering);
-//
-//        newQueue.setCreatedAt(LocalDateTime.now());
-//        Queue saved = queueRepository.save(newQueue);
-//
-//        return modelMapper.map(saved, CreateQueueResponse.class)
-//                .toBuilder()
-//                .newlyCreated(true)
-//                .message("New queue created successfully.")
-//                .build();
-//    }
-//
-//    // other methods...
-//}
-
-
-
-
 
