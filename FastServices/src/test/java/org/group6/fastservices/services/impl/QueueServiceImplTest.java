@@ -31,13 +31,11 @@ class QueueServiceImplTest {
     @Autowired
     private OfferingRepository offeringRepository;
 
-    private Organization organization;
-    private Offering offering;
     private CreateQueueRequest request;
 
     @BeforeEach
     void setUp() {
-        organization = new Organization();
+        Organization organization = new Organization();
         organization.setName("FAST Services");
         organization.setCode("FS001");
         organization.setContactEmail("contact@fake.com");
@@ -46,7 +44,7 @@ class QueueServiceImplTest {
         organization.setRole("ORGANIZATION");
         organization = organizationRepository.save(organization);
 
-        offering = new Offering();
+        Offering offering = new Offering();
         offering.setName("Student Registration");
         offering.setDescription("Service for registering new students");
         offering.setOrganization(organization);
