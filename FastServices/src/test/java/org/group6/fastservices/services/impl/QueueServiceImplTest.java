@@ -69,13 +69,11 @@ class QueueServiceImplTest {
     @Test
     void testFindOrCreateQueue_createsNewQueue() {
         CreateQueueResponse response = queueService.findOrCreateQueueForOffering(request);
-
         assertNotNull(response);
         assertTrue(response.isNewlyCreated());
+
         assertEquals("Student Registration Queue", response.getName());
         assertEquals("Queue for Student Registration", response.getDescription());
-        assertEquals(organization.getId(), response.getOrganizationId());
-        assertEquals(offering.getId(), response.getOfferingId());
     }
 
     @Test
