@@ -43,7 +43,7 @@ public class QueueServiceImpl implements QueueService {
 
         Organization org = new Organization();
         org.setId(request.getOrganizationId());
-        org.setName(request.getOrganizationName());
+        org.setCode(request.getOrganizationCode());
         newQueue.setOrganization(org);
 
         Offering offering = new Offering();
