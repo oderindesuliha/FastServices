@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @Setter
 @Getter
 public class CreateQueueResponse {

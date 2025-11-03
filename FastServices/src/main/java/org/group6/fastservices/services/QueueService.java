@@ -17,21 +17,6 @@ public interface QueueService {
 }
 
 
-
-//@Service
-//@AllArgsConstructor
-//public class QueueServiceImpl implements QueueService {
-//
-//    private final QueueRepository queueRepository;
-//    private final ModelMapper modelMapper;
-//
-//    @Override
-//    public CreateQueueResponse findOrCreateQueueForOffering(CreateQueueRequest request) {
-//        List<Queue> existingQueues = queueRepository.findByOrganizationId(request.getOrganizationId())
-//                .stream()
-//                .filter(q -> q.getOffering() != null &&
-//                        q.getOffering().getId().equals(request.getOfferingId()))
-//                .toList();
 //
 //        if (!existingQueues.isEmpty()) {
 //            Queue existingQueue = existingQueues.get(0);
