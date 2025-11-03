@@ -16,16 +16,6 @@ public interface QueueService {
 //    void deleteQueue(String id);
 }
 
-
-//
-//        if (!existingQueues.isEmpty()) {
-//            Queue existingQueue = existingQueues.get(0);
-//            return modelMapper.map(existingQueue, CreateQueueResponse.class)
-//                    .toBuilder()
-//                    .newlyCreated(false)
-//                    .message("Existing queue found for offering.")
-//                    .build();
-//        }
 //
 //        // Otherwise, create new queue
 //        Queue newQueue = new Queue();

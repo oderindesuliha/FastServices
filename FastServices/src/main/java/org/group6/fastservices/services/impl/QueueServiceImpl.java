@@ -1,6 +1,8 @@
 package org.group6.fastservices.services.impl;
 
 import lombok.AllArgsConstructor;
+import org.group6.fastservices.data.models.Offering;
+import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.models.Queue;
 import org.group6.fastservices.data.repositories.QueueRepository;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
@@ -9,6 +11,7 @@ import org.group6.fastservices.services.QueueService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -34,6 +37,21 @@ public class QueueServiceImpl implements QueueService {
                     .message("Existing queue found for offering")
                     .build();
         }
+        Queue newQueue = new Queue();
+        newQueue.setName(request.getOfferingName() + " Queue");
+        newQueue.setDescription("Queue for " + request.getOfferingName());
+
+        Organization org = new Organization();
+        org.setId(request.getOrganizationId());
+        org.setName(request.getOrganizationName());
+        newQueue.setOrganization(org);
+
+        Offering offering = new Offering();
+        offering.setId(request.getOfferingId());
+        offering.setName(request.getOfferingName());
+        newQueue.setOffering(offering);
+
+        newQueue.setCreatedAt(LocalDateTime.now());
         return null;
     }
 }
