@@ -6,6 +6,7 @@ import org.group6.fastservices.data.repositories.*;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
+import org.group6.fastservices.dtos.responses.CreateQueueResponse;
 import org.group6.fastservices.exceptions.*;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.AppointmentService;
@@ -41,7 +42,11 @@ public class AppointmentServiceImpl implements AppointmentService {
                 offering.getId(),
                 offering.getName(),
                 offering.getOrganization().getId(),
-                offering.getOrganization().getName());
+                offering.getOrganization().getCode()
+        );
+        CreateQueueResponse queueResponse = queueService.findOrCreateQueueForOffering(queueRequest);
+
+        Queue queue = modelMapper.map(queueResponse, CreateQueueResponse.class)
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
         appointment.setStatus(AppointmentStatus.PENDING);

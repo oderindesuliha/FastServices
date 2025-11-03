@@ -22,7 +22,6 @@ public class CreateQueueResponse {
     private String offeringName;
 
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     private boolean newlyCreated;
     private String message;

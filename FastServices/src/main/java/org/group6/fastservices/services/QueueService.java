@@ -14,26 +14,6 @@ public interface QueueService {
 }
 
 
-
-//    @Override
-//    @PreAuthorize("hasRole('CUSTOMER')")
-//    public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
-//        // 1️⃣ Get authenticated customer
-//        Customer customer = getAuthenticatedCustomer();
-//
-//        // 2️⃣ Find offering
-//        Offering offering = offeringRepository.findOfferingByName(request.getOfferingName())
-//                .orElseThrow(() -> new OfferingNotFoundException("Service not found: " + request.getOfferingName()));
-//
-//        // 3️⃣ Get or create queue for this offering
-//        var queueRequest = new org.group6.fastservices.dtos.requests.CreateQueueRequest(
-//                offering.getId(),
-//                offering.getName(),
-//                offering.getOrganization().getId(),
-//                offering.getOrganization().getName()
-//        );
-//        var queueResponse = queueService.findOrCreateQueueForOffering(queueRequest);
-
 //        Queue queue = modelMapper.map(queueResponse, Queue.class);
 //
 //        // 4️⃣ Determine next queue position
@@ -50,28 +30,36 @@ public interface QueueService {
 //
 //        Appointment saved = appointmentRepository.save(appointment);
 //
-//        // 6️⃣ Build response
-//        return new CreateAppointmentResponse(
-//                saved.getAppointmentDate(),
-//                saved.getStatus(),
-//                saved.getQueuePosition(),
-//                saved.getCreatedAt(),
-//                "Appointment created successfully.",
-//                true
-//        );
-//    }
+
 //
-//    private Customer getAuthenticatedCustomer() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth == null || !auth.isAuthenticated()) throw new RuntimeException("Unauthenticated access");
+//    CreateQueueResponse queueResponse = queueService.findOrCreateQueueForOffering(queueRequest);
 //
-//        var principal = (AuthenticatedPrincipal) auth.getPrincipal();
-//        if (principal.isOrganizationAccount()) throw new AccessDeniedException("Access denied for organization account");
+//    // 4️⃣ Create and populate the appointment
+//    Appointment appointment = new Appointment();
+//    appointment.setAppointmentDate(request.getAppointmentDate());
+//    appointment.setStatus(AppointmentStatus.PENDING);
+//    appointment.setCreatedAt(LocalDateTime.now());
+//    appointment.setUser(customer);
+//    appointment.setOffering(offering);
 //
-//        return customerRepository.findCustomerByEmail(principal.getUsername())
-//                .orElseThrow(() -> new AccountNotFoundException("Authenticated customer not found"));
-//    }
+//    // Link the queue (only by ID, no need to remap the full object)
+//    Queue queue = new Queue();
+//    queue.setId(queueResponse.getId());
+//    appointment.setQueue(queue);
 //
-//    // other CRUD methods unchanged
+//    // 5️⃣ Save appointment
+//    Appointment savedAppointment = appointmentRepository.save(appointment);
+//
+//    // 6️⃣ Build and return response
+//    return CreateAppointmentResponse.builder()
+//            .id(savedAppointment.getId())
+//            .offeringName(offering.getName())
+//            .organizationName(offering.getOrganization().getName())
+//            .appointmentDate(savedAppointment.getAppointmentDate())
+//            .status(savedAppointment.getStatus())
+//            .createdAt(savedAppointment.getCreatedAt())
+//            .message("Appointment created successfully.")
+//            .newlyCreated(true)
+//            .build();
 //}
 
