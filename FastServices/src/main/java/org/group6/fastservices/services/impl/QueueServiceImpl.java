@@ -1,6 +1,8 @@
 package org.group6.fastservices.services.impl;
 
+import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Queue;
+import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.data.repositories.QueueRepository;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
@@ -13,7 +15,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class QueueServiceImpl implements QueueService {
+
+    private final QueueRepository queueRepository;
+    private final OrganizationRepository organizationRepository;
 
     @Override
     public CreateQueueResponse findOrCreateQueueForOffering(CreateQueueRequest request) {
