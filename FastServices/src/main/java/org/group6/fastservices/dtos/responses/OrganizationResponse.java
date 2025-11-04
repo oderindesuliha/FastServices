@@ -1,11 +1,14 @@
 package org.group6.fastservices.dtos.responses;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 public class OrganizationResponse {
     private String id;
     private String name;

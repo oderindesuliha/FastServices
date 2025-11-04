@@ -1,13 +1,15 @@
 package org.group6.fastservices.data.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "appointments")
 public class Appointment {

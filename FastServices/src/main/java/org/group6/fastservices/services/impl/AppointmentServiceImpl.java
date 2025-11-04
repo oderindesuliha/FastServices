@@ -11,7 +11,6 @@ import org.group6.fastservices.exceptions.*;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.AppointmentService;
 import org.group6.fastservices.services.QueueService;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
