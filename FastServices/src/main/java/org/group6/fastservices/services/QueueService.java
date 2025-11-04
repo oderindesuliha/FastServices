@@ -14,14 +14,6 @@ public interface QueueService {
 }
 
 
-//
-//    // 5️⃣ Save appointment
-//    Appointment savedAppointment = appointmentRepository.save(appointment);
-//
-//    // 6️⃣ Build and return response
-//    return CreateAppointmentResponse.builder()
-//            .id(savedAppointment.getId())
-//            .offeringName(offering.getName())
 //            .organizationName(offering.getOrganization().getName())
 //            .appointmentDate(savedAppointment.getAppointmentDate())
 //            .status(savedAppointment.getStatus())

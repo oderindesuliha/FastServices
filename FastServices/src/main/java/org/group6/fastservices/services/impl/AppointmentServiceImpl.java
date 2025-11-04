@@ -63,7 +63,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         return CreateAppointmentResponse.builder()
                 .id(savedAppointment.getId())
                 .offeringName(savedAppointment.getOffering().getName())
-                .organizationName()
+                .organizationName(savedAppointment.getOffering())
                 .appointmentDate()
                 .status()
                 .queuePosition()
