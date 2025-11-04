@@ -18,5 +18,4 @@ public class CustomOrganizationDetailsService implements UserDetailsService {
                 .map(AuthenticatedPrincipal::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Organization not found"));
     }
-
 }
