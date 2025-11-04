@@ -43,7 +43,6 @@ class AppointmentServiceImplTest {
         organizationRepository.deleteAll();
         offeringRepository.deleteAll();
         mockCustomerAuthentication();
-
     }
 
     @AfterEach
@@ -62,9 +61,11 @@ class AppointmentServiceImplTest {
     }
 
     private CreateAppointmentResponse createAppointment() {
+        Offering offering = createOrganizationAndService();
         CreateAppointmentRequest request = new CreateAppointmentRequest();
-        request.setAppointmentDate(LocalDateTime.of(2025, 11, 16, 5, 30));
 
+        request.setOfferingId(offering.getId());
+        request.setAppointmentDate(LocalDateTime.of(2025, 11, 16, 5, 30));
         return appointmentService.createAppointment(request);
     }
 
