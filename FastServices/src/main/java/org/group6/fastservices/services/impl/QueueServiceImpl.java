@@ -63,9 +63,7 @@ public class QueueServiceImpl implements QueueService {
         queue.setName(request.getOfferingName() + " Queue");
         queue.setDescription("Queue for " + request.getOfferingName());
 
-        Organization org = organizationService.getOr;
-        org.setId(request.getOrganizationId());
-        org.setCode(request.getOrganizationCode());
+        Organization org = organizationService.getOrganizationById(request.getOrganizationId());
         queue.setOrganization(org);
 
         Offering offering = offeringService.getOfferingById(request.getOfferingId());
