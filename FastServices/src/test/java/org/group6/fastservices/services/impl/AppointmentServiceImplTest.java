@@ -1,8 +1,11 @@
 package org.group6.fastservices.services.impl;
 
 import org.group6.fastservices.data.models.Customer;
+import org.group6.fastservices.data.models.Offering;
+import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
+import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
@@ -27,6 +30,10 @@ class AppointmentServiceImplTest {
     private AppointmentRepository appointmentRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private OrganizationRepository organizationRepository;
+    @Autowired
+    private OfferingRepository
 
     @BeforeEach
     void setUp() {
@@ -74,8 +81,15 @@ class AppointmentServiceImplTest {
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
-    private void createOrganizationAndService() {
+    private Offering createOrganizationAndService() {
+        Organization organization = new Organization();
+        organization.setName("Semicolon");
+        organization = organizationRepository.save(organization);
 
+        Offering offering = new Offering();
+        offering.setName("Native Registration");
+        offering.setOrganization(organization);
+        return offeringRepository.save(offering);
     }
 
 }
