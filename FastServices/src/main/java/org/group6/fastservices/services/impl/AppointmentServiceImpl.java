@@ -35,9 +35,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @PreAuthorize("hasRole('CUSTOMER')")
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
-//        Offering offering = offeringRepository.findOfferingByName(request.getOfferingName())
-//                .orElseThrow(()-> new OfferingNotFoundException("Service not found: " + request.getOfferingName()));
-        Offering offering = offeringRepository.findById()
+        Offering offering = offeringRepository.findById(request.getOfferingId())
+                .orElseThrow(() -> new OfferingNotFoundException("Service not found " + request.getOfferingId()));
 
         CreateQueueRequest queueRequest = new CreateQueueRequest(
                 offering.getId(),
