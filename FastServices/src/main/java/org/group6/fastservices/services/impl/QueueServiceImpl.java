@@ -7,6 +7,7 @@ import org.group6.fastservices.data.models.Queue;
 import org.group6.fastservices.data.repositories.QueueRepository;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
+import org.group6.fastservices.exceptions.QueueNotFoundException;
 import org.group6.fastservices.services.QueueService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class QueueServiceImpl implements QueueService {
     @Override
     public Queue getQueueById(String id) {
         return queueRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Queue not found"));
+                .orElseThrow(() -> new QueueNotFoundException("Queue not found"));
     }
 
     private Queue buildNewQueue(CreateQueueRequest request) {
