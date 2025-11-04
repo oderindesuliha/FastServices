@@ -5,6 +5,7 @@ import org.group6.fastservices.data.models.Offering;
 import org.group6.fastservices.data.models.Organization;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
+import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
@@ -33,7 +34,7 @@ class AppointmentServiceImplTest {
     @Autowired
     private OrganizationRepository organizationRepository;
     @Autowired
-    private OfferingRepository
+    private OfferingRepository offeringRepository;
 
     @BeforeEach
     void setUp() {
