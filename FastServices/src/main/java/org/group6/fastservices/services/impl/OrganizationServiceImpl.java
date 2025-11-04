@@ -38,6 +38,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         return new RegisterOrgResponse("Organization registered successfully", organization.getCode(), true);
     }
 
+    @Override
+    public Organization getOrganizationById(String id) {
+        return organizationRepository.findById(id)
+                .orElseThrow(()-> new Or);
+    }
 
 
     private void verifyNewEmail(String email) {
