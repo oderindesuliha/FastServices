@@ -16,7 +16,7 @@ public class CreateQueueResponse {
     private String description;
 
     private String organizationId;
-    private String organizationName;
+    private String organizationCode;
 
     private String offeringId;
     private String offeringName;
