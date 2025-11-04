@@ -36,7 +36,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         Customer customer = getAuthenticatedCustomer();
         Offering offering = offeringRepository.findById(request.getOfferingId())
-                .orElseThrow(() -> new OfferingNotFoundException("Service not found " + request.getOfferingId()));
+                .orElseThrow(() -> new OfferingNotFoundException("Service not found"));
 
         CreateQueueRequest queueRequest = new CreateQueueRequest(
                 offering.getId(),
