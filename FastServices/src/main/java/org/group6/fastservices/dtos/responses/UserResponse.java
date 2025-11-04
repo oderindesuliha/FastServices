@@ -1,11 +1,14 @@
 package org.group6.fastservices.dtos.responses;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 public class UserResponse {
     private String id;
     private String firstName;
