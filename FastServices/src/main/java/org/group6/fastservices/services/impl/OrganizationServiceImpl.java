@@ -7,6 +7,7 @@ import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.RegisterOrgRequest;
 import org.group6.fastservices.dtos.responses.RegisterOrgResponse;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
+import org.group6.fastservices.exceptions.OrganizationNotFoundException;
 import org.group6.fastservices.services.OrganizationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,9 +42,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public Organization getOrganizationById(String id) {
         return organizationRepository.findById(id)
-                .orElseThrow(()-> new Or);
+                .orElseThrow(()-> new OrganizationNotFoundException("Organization not found"));
     }
-
 
     private void verifyNewEmail(String email) {
         if (organizationRepository.existsByContactEmail(email))
