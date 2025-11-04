@@ -9,5 +9,11 @@ public interface OrganizationService {
     Organization getOrganizationById(String id);
 
 
-
+//    Organization createOrganization(Organization organization);
+//    Organization getOrganizationById(String id);
+//    Organization getOrganizationByCode(String code);
+//    List<Organization> getAllOrganizations();
+//    Organization updateOrganization(String id, Organization organization);
+//    void deleteOrganization(String id);
+//    boolean existsByCode(String code);
 }
