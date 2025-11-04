@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class CreateAppointmentRequest {
-    private String userId;
-    private String offeringName;
+    private String offeringId;
     private LocalDateTime appointmentDate;
 }

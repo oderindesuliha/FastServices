@@ -12,4 +12,5 @@ public interface OfferingRepository extends JpaRepository<Offering, String> {
     List<Offering> findByOrganizationId(String organizationId);
 
     Optional<Offering> findOfferingByName(String name);
+
 }
