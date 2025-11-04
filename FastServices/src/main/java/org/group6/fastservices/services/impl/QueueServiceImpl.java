@@ -23,6 +23,7 @@ public class QueueServiceImpl implements QueueService {
     private final QueueRepository queueRepository;
     private final ModelMapper modelMapper;
     private final OfferingService offeringService;
+    private final
 
     @Override
     public CreateQueueResponse findOrCreateQueueForOffering(CreateQueueRequest request) {
@@ -66,12 +67,8 @@ public class QueueServiceImpl implements QueueService {
         org.setCode(request.getOrganizationCode());
         queue.setOrganization(org);
 
-        Offering offering = offeringRepository.findById(request.getOfferingId())
-                .orElseThrow(() -> new OfferingNotFoundException("Offering not found"));
+        Offering offering = offeringService.getOfferingById(request.getOfferingId());
         queue.setOffering(offering);
-
-        queue.setOffering(offering);
-
         queue.setCreatedAt(LocalDateTime.now());
         return queue;
     }
