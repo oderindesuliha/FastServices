@@ -29,7 +29,7 @@ public class AuthenticatedPrincipal implements UserDetails {
 
     public AuthenticatedPrincipal(Organization org) {
         this.id = org.getId();
-        this.username = org.getCode(); // UNIQUE LOGIN FIELD
+        this.username = org.getCode();
         this.password = org.getPassword();
         this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + org.getRole()));
         this.organizationAccount = true;
