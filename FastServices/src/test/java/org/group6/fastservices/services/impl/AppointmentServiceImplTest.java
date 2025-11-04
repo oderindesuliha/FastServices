@@ -1,6 +1,5 @@
 package org.group6.fastservices.services.impl;
 
-import org.group6.fastservices.data.models.AppointmentStatus;
 import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;

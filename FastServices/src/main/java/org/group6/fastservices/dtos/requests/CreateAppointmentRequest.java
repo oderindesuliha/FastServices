@@ -9,6 +9,5 @@ import java.time.LocalDateTime;
 public class CreateAppointmentRequest {
     private String userId;
     private String offeringName;
-    private String queueId;
     private LocalDateTime appointmentDate;
 }

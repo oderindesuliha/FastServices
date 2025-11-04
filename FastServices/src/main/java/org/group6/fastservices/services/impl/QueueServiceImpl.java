@@ -30,7 +30,7 @@ public class QueueServiceImpl implements QueueService {
                 .toList();
 
         if(!existingQueues.isEmpty()) {
-            Queue existingQueue = existingQueues.get(0);
+            Queue existingQueue = existingQueues.getFirst();
             return modelMapper.map(existingQueue, CreateQueueResponse.class)
                     .toBuilder()
                     .newlyCreated(false)
