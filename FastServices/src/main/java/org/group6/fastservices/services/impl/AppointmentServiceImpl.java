@@ -44,11 +44,9 @@ public class AppointmentServiceImpl implements AppointmentService {
                 offering.getOrganization().getId(),
                 offering.getOrganization().getCode()
         );
+
         CreateQueueResponse queueResponse = queueService.findOrCreateQueueForOffering(queueRequest);
-
         Queue queue = queueService.getQueueById(queueResponse.getId());
-
-
         int nextPosition = appointmentRepository.countByQueueId(queue.getId()) + 1;
 
         Appointment appointment = modelMapper.map(request, Appointment.class);
