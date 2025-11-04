@@ -28,7 +28,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final CustomerRepository customerRepository;
     private final AppointmentRepository appointmentRepository;
     private final OfferingRepository offeringRepository;
-    private final ModelMapper modelMapper;
     private final QueueService queueService;
 
     @Override
