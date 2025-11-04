@@ -47,6 +47,12 @@ public class QueueServiceImpl implements QueueService {
                 .build();
     }
 
+    @Override
+    public Queue getQueueById(String id) {
+        return queueRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Queue not found"));
+    }
+
     private Queue buildNewQueue(CreateQueueRequest request) {
         Queue queue = new Queue();
         queue.setName(request.getOfferingName() + " Queue");

@@ -6,7 +6,6 @@ import org.group6.fastservices.dtos.responses.CreateQueueResponse;
 
 public interface QueueService {
     CreateQueueResponse findOrCreateQueueForOffering(CreateQueueRequest request);
-
     Queue getQueueById(String id);
 //    Queue getQueueById(String id);
 //    List<Queue> getQueuesByOrganizationId(String organizationId);
