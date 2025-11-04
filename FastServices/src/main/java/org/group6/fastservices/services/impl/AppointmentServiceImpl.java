@@ -60,10 +60,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         Appointment savedAppointment = appointmentRepository.save(appointment);
 
-        return modelMapper.map(savedAppointment, CreateAppointmentResponse.class)
-                .toBuilder()
+        return CreateAppointmentResponse.builder()
                 .id(savedAppointment.getId())
-                .offeringName()
+                .offeringName(savedAppointment.getOffering().getName())
                 .organizationName()
                 .appointmentDate()
                 .status()
