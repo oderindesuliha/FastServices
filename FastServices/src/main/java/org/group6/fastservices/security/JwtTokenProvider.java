@@ -32,7 +32,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
-                .claim("role", role.name()) // store enum name as claim
+                .claim("role", role.name())
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(Instant.now().plusSeconds(jwtExpirationDate)))
                 .signWith(getSigningKey())
