@@ -74,4 +74,8 @@ class AppointmentServiceImplTest {
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
+    private void createOrganizationAndService() {
+
+    }
+
 }
