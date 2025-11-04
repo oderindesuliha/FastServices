@@ -21,3 +21,4 @@ public class CreateAppointmentResponse {
     private String message;
     private boolean success;
 }
+

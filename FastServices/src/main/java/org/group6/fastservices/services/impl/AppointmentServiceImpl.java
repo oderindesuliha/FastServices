@@ -62,7 +62,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         return modelMapper.map(savedAppointment, CreateAppointmentResponse.class)
                 .toBuilder()
-                .
+                .id(savedAppointment.getId())
+                .offeringName()
+                .organizationName()
+                .appointmentDate()
+                .status()
+                .queuePosition()
+                .createdAt()
+                .message("Appointment created successfully")
+                .success(true);
     }
 
     @Override

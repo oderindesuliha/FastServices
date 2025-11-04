@@ -37,26 +37,32 @@ public class QueueServiceImpl implements QueueService {
                     .message("Existing queue found for offering")
                     .build();
         }
-        Queue newQueue = new Queue();
-        newQueue.setName(request.getOfferingName() + " Queue");
-        newQueue.setDescription("Queue for " + request.getOfferingName());
-
-        Organization org = new Organization();
-        org.setId(request.getOrganizationId());
-        org.setCode(request.getOrganizationCode());
-        newQueue.setOrganization(org);
-
-        Offering offering = new Offering();
-        offering.setId(request.getOfferingId());
-        offering.setName(request.getOfferingName());
-        newQueue.setOffering(offering);
-
-        newQueue.setCreatedAt(LocalDateTime.now());
+        Queue newQueue = buildNewQueue(request);
         Queue savedQueue = queueRepository.save(newQueue);
+
         return modelMapper.map(savedQueue, CreateQueueResponse.class)
                 .toBuilder()
                 .newlyCreated(true)
                 .message("New queue created successfully")
                 .build();
+    }
+
+    private Queue buildNewQueue(CreateQueueRequest request) {
+        Queue queue = new Queue();
+        queue.setName(request.getOfferingName() + " Queue");
+        queue.setDescription("Queue for " + request.getOfferingName());
+
+        Organization org = new Organization();
+        org.setId(request.getOrganizationId());
+        org.setCode(request.getOrganizationCode());
+        queue.setOrganization(org);
+
+        Offering offering = new Offering();
+        offering.setId(request.getOfferingId());
+        offering.setName(request.getOfferingName());
+        queue.setOffering(offering);
+
+        queue.setCreatedAt(LocalDateTime.now());
+        return queue;
     }
 }
