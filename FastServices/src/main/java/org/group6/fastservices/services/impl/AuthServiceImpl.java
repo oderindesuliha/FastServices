@@ -9,7 +9,6 @@ import org.group6.fastservices.data.repositories.*;
 import org.group6.fastservices.dtos.requests.*;
 import org.group6.fastservices.dtos.responses.*;
 import org.group6.fastservices.exceptions.*;
-import org.group6.fastservices.security.CustomServiceResolver;
 import org.group6.fastservices.security.JwtTokenProvider;
 import org.group6.fastservices.services.AuthService;
 import org.group6.fastservices.services.EmailService;
@@ -34,7 +33,6 @@ public class AuthServiceImpl implements AuthService {
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
-    private final CustomServiceResolver customServiceResolver;
 
 
     @Override
