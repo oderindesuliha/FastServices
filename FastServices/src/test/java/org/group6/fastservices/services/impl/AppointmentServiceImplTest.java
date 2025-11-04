@@ -91,6 +91,11 @@ class AppointmentServiceImplTest {
     private Offering createOrganizationAndService() {
         Organization organization = new Organization();
         organization.setName("Semicolon");
+        organization.setCode("SEM001");
+        organization.setContactEmail("semicolon@fake.com");
+        organization.setContactPhone("1234567890");
+        organization.setPassword("password");
+        organization.setRole("ORGANIZATION");
         organization = organizationRepository.save(organization);
 
         Offering offering = new Offering();
@@ -98,5 +103,4 @@ class AppointmentServiceImplTest {
         offering.setOrganization(organization);
         return offeringRepository.save(offering);
     }
-
 }
