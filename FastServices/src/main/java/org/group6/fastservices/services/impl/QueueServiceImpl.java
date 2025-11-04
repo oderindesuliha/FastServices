@@ -9,6 +9,7 @@ import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
 import org.group6.fastservices.exceptions.QueueNotFoundException;
 import org.group6.fastservices.services.OfferingService;
+import org.group6.fastservices.services.OrganizationService;
 import org.group6.fastservices.services.QueueService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class QueueServiceImpl implements QueueService {
     private final QueueRepository queueRepository;
     private final ModelMapper modelMapper;
     private final OfferingService offeringService;
-    private final
+    private final OrganizationService organizationService;
 
     @Override
     public CreateQueueResponse findOrCreateQueueForOffering(CreateQueueRequest request) {
@@ -62,7 +63,7 @@ public class QueueServiceImpl implements QueueService {
         queue.setName(request.getOfferingName() + " Queue");
         queue.setDescription("Queue for " + request.getOfferingName());
 
-        Organization org = new Organization();
+        Organization org = organizationService.getOr;
         org.setId(request.getOrganizationId());
         org.setCode(request.getOrganizationCode());
         queue.setOrganization(org);
