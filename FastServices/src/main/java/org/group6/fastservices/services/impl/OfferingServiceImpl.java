@@ -3,12 +3,14 @@ package org.group6.fastservices.services.impl;
 import lombok.AllArgsConstructor;
 import org.group6.fastservices.data.models.Offering;
 import org.group6.fastservices.data.models.Organization;
+import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateServiceRequest;
 import org.group6.fastservices.dtos.responses.CreateServiceResponse;
 import org.group6.fastservices.exceptions.AccessDeniedException;
 import org.group6.fastservices.exceptions.AccountNotFoundException;
 import org.group6.fastservices.exceptions.DetailsAlreadyInUseException;
+import org.group6.fastservices.exceptions.OfferingNotFoundException;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.OfferingService;
 import org.modelmapper.ModelMapper;
@@ -25,6 +27,7 @@ public class OfferingServiceImpl implements OfferingService {
     
     private final OrganizationRepository organizationRepository;
     private final ModelMapper modelMapper;
+    private final OfferingRepository offeringRepository;
 
 
     @Override
@@ -40,6 +43,12 @@ public class OfferingServiceImpl implements OfferingService {
         organization.getServices().add(service);
         organizationRepository.save(organization);
         return new CreateServiceResponse(service.getName(), "Added successfully", true);
+    }
+
+    @Override
+    public Offering getOfferingById(String id) {
+        return offeringRepository.findById(id)
+                .orElseThrow(()-> new OfferingNotFoundException("Service not found"));
     }
 
     private void validateDuplicateServiceName(Organization org, String serviceName) {

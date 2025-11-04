@@ -11,7 +11,7 @@ public interface OfferingService {
 //    Offering updateOffering(String id, Offering offering);
 
 
-//    Offering getOfferingById(String id);
+    Offering getOfferingById(String id);
 //    List<Offering> getOfferingsByOrganizationId(String organizationId);
 //    List<Offering> getAllOfferings();
 //    void deleteOffering(String id);

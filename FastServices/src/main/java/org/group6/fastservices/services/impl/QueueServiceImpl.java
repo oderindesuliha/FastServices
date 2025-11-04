@@ -8,6 +8,7 @@ import org.group6.fastservices.data.repositories.QueueRepository;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
 import org.group6.fastservices.exceptions.QueueNotFoundException;
+import org.group6.fastservices.services.OfferingService;
 import org.group6.fastservices.services.QueueService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class QueueServiceImpl implements QueueService {
 
     private final QueueRepository queueRepository;
     private final ModelMapper modelMapper;
+    private final OfferingService offeringService;
 
     @Override
     public CreateQueueResponse findOrCreateQueueForOffering(CreateQueueRequest request) {
@@ -64,9 +66,10 @@ public class QueueServiceImpl implements QueueService {
         org.setCode(request.getOrganizationCode());
         queue.setOrganization(org);
 
-        Offering offering = new Offering();
-        offering.setId(request.getOfferingId());
-        offering.setName(request.getOfferingName());
+        Offering offering = offeringRepository.findById(request.getOfferingId())
+                .orElseThrow(() -> new OfferingNotFoundException("Offering not found"));
+        queue.setOffering(offering);
+
         queue.setOffering(offering);
 
         queue.setCreatedAt(LocalDateTime.now());
