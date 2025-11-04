@@ -43,13 +43,11 @@ public class EmailServiceImpl implements EmailService {
     public void sendAppointmentConfirmation(String to, String appointmentDetails) {
         String subject = "Appointment Confirmation - FastService";
         String body = "Your appointment has been confirmed!\n\n" + appointmentDetails;
-//        sendEmail(to, subject, body);
     }
     
     @Override
     public void sendQueueNotification(String to, String queueDetails) {
         String subject = "Queue Status Update - FastService";
         String body = "Your queue status has been updated:\n\n" + queueDetails;
-//        sendEmail(to, subject, body);
     }
 }
