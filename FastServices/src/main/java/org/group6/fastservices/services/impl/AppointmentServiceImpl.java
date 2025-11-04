@@ -60,7 +60,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         Appointment savedAppointment = appointmentRepository.save(appointment);
 
-        return new CreateAppointmentResponse
+        return modelMapper.map(savedAppointment, CreateAppointmentResponse.class)
                 .toBuilder()
                 .
 

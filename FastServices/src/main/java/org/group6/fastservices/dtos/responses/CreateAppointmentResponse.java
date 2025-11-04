@@ -1,9 +1,6 @@
 package org.group6.fastservices.dtos.responses;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.group6.fastservices.data.models.AppointmentStatus;
 
 import java.time.LocalDateTime;
@@ -12,7 +9,11 @@ import java.time.LocalDateTime;
 @Getter
 @Builder(toBuilder = true)
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class CreateAppointmentResponse {
+    private String id;
+    private String offeringName;
+    private String organizationName;
     private LocalDateTime appointmentDate;
     private AppointmentStatus status;
     private int queuePosition;
