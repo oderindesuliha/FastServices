@@ -40,6 +40,8 @@ class AppointmentServiceImplTest {
     void setUp() {
         appointmentRepository.deleteAll();
         customerRepository.deleteAll();
+        organizationRepository.deleteAll();
+        offeringRepository.deleteAll();
         mockCustomerAuthentication();
 
     }
@@ -48,6 +50,8 @@ class AppointmentServiceImplTest {
     void tearDown() {
         appointmentRepository.deleteAll();
         customerRepository.deleteAll();
+        organizationRepository.deleteAll();
+        offeringRepository.deleteAll();
         SecurityContextHolder.clearContext();
     }
 
