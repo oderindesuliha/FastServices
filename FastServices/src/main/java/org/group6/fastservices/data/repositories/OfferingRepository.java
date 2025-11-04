@@ -13,15 +13,3 @@ public interface OfferingRepository extends JpaRepository<Offering, String> {
     Optional<Offering> findOfferingByName(String name);
 
 }
-
-
-//    CreateAppointmentRequest request = new CreateAppointmentRequest();
-//    request.setOfferingId(offering.getId());
-//    request.setAppointmentDate(LocalDateTime.of(2025, 11, 16, 5, 30));
-//
-//    CreateAppointmentResponse response = appointmentService.createAppointment(request);
-//
-//    assertTrue(response.isSuccess());
-//    assertEquals("Document Pickup", response.getOfferingName());
-//}
-

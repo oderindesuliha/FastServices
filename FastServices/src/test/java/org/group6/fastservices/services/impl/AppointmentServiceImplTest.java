@@ -58,6 +58,7 @@ class AppointmentServiceImplTest {
     void testCanCreateAppointment() {
         CreateAppointmentResponse response  =  createAppointment();
         assertTrue(response.isSuccess());
+        assertEquals("Native Registration", response.getOfferingName());
     }
 
     private CreateAppointmentResponse createAppointment() {
