@@ -62,14 +62,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         return CreateAppointmentResponse.builder()
                 .id(savedAppointment.getId())
-                .offeringName(savedAppointment.getOffering().getName())
-                .organizationName(savedAppointment.getOffering())
-                .appointmentDate()
-                .status()
-                .queuePosition()
-                .createdAt()
+                .offeringName(offering.getName())
+                .organizationName(offering.getOrganization().getName())
+                .appointmentDate(savedAppointment.getAppointmentDate())
+                .status(savedAppointment.getStatus())
+                .queuePosition(savedAppointment.getQueuePosition())
+                .createdAt(savedAppointment.getCreatedAt())
                 .message("Appointment created successfully")
-                .success(true);
+                .success(true)
+                .build();
     }
 
     @Override
