@@ -58,7 +58,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setCreatedAt(LocalDateTime.now());
         appointment.setQueuePosition(nextPosition);
 
-
         Appointment savedAppointment = appointmentRepository.save(appointment);
 
         return CreateAppointmentResponse.builder()
