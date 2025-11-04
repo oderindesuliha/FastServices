@@ -12,5 +12,5 @@ public interface QueueRepository extends JpaRepository<Queue, String> {
     List<Queue> findByOrganizationId(String organizationId);
     List<Queue> findByAppointmentsOfferingId(String offeringId);
 
-//    Optional<Queue> findByOfferingName(String offeringName);
+    Optional<Queue> findByOfferingName(String offeringName);
 }
