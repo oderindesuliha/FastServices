@@ -122,8 +122,4 @@ public class AppointmentServiceImpl implements AppointmentService {
         return customerRepository.findCustomerByEmail(customer.getUsername())
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
     }
-
-    private void validateDuplicateAppointmentFromACustomer(Customer customer ) {
-//        var appointment = appointmentRepository.findByOfferingName();
-    }
 }
