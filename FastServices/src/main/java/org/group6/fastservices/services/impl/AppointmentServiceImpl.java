@@ -117,7 +117,9 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new RuntimeException("Unauthenticated access");
 
         var customer = (AuthenticatedPrincipal) auth.getPrincipal();
-        if(customer.isOrganizationAccount()) throw new AccessDeniedException("Access not granted");
+        if(customer.isOrganizationAccount())
+            throw new AccessDeniedException("Access not granted");
+
         return customerRepository.findCustomerByEmail(customer.getUsername())
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
     }
