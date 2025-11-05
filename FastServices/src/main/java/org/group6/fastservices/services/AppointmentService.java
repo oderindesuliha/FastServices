@@ -17,3 +17,89 @@ public interface AppointmentService {
     void deleteAppointment(String id);
 
 }
+
+
+// ------------------ READ ------------------
+@Override
+public AppointmentResponse getAppointmentById(String id) {
+    Appointment appointment = appointmentRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
+    return mapToDto(appointment);
+}
+
+@Override
+public List<AppointmentResponse> getAppointmentsByCustomerId(String customerId) {
+    return appointmentRepository.findByUserId(customerId)
+            .stream().map(this::mapToDto).collect(Collectors.toList());
+}
+
+@Override
+public List<AppointmentResponse> getAppointmentsByOfferingId(String offeringId) {
+    return appointmentRepository.findByOfferingId(offeringId)
+            .stream().map(this::mapToDto).collect(Collectors.toList());
+}
+
+@Override
+public List<AppointmentResponse> getAppointmentsByQueueId(String queueId) {
+    return appointmentRepository.findByQueueId(queueId)
+            .stream().map(this::mapToDto).collect(Collectors.toList());
+}
+
+@Override
+public List<AppointmentResponse> getAllAppointments() {
+    return appointmentRepository.findAll()
+            .stream().map(this::mapToDto).collect(Collectors.toList());
+}
+
+// ------------------ UPDATE ------------------
+@Override
+public AppointmentResponse updateAppointment(String id, UpdateAppointmentRequest request) {
+    Appointment appointment = appointmentRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
+
+    appointment.setAppointmentDate(request.getAppointmentDate());
+    appointment.setStatus(request.getStatus());
+    appointment.setUpdatedAt(LocalDateTime.now());
+
+    Appointment updated = appointmentRepository.save(appointment);
+    return mapToDto(updated);
+}
+
+// ------------------ DELETE ------------------
+@Override
+public GenericResponse deleteAppointment(String id) {
+    Appointment appointment = appointmentRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
+
+    appointmentRepository.delete(appointment);
+
+    return new GenericResponse(true, "Appointment deleted successfully");
+}
+
+// ------------------ HELPER METHODS ------------------
+private AppointmentResponse mapToDto(Appointment appointment) {
+    return AppointmentResponse.builder()
+            .id(appointment.getId())
+            .offeringName(appointment.getOffering().getName())
+            .organizationName(appointment.getOffering().getOrganization().getName())
+            .customerName(appointment.getUser().getFullName())
+            .appointmentDate(appointment.getAppointmentDate())
+            .status(appointment.getStatus())
+            .queuePosition(appointment.getQueuePosition())
+            .createdAt(appointment.getCreatedAt())
+            .build();
+}
+
+private Customer getAuthenticatedCustomer() {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated())
+        throw new RuntimeException("Unauthenticated access");
+
+    var principal = (AuthenticatedPrincipal) auth.getPrincipal();
+    if (principal.isOrganizationAccount())
+        throw new AccessDeniedException("Access not granted");
+
+    return customerRepository.findCustomerByEmail(principal.getUsername())
+            .orElseThrow(() -> new AccountNotFoundException("Authenticated customer not found"));
+}
+}

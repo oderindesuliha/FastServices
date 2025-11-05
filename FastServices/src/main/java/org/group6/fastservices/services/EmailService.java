@@ -6,24 +6,15 @@ public interface EmailService {
     void sendQueueNotification(String to, String queueDetails);
 }
 
+//public class AppointmentResponse {
+//    private String id;
+//    private String offeringName;
+//    private String organizationName;
+//    private String customerName;
+//    private LocalDateTime appointmentDate;
+//    private String status;
+//    private Integer queuePosition;
+//    private LocalDateTime createdAt;
+//
+//}
 
-
-package org.group6.fastservices.dtos.responses;
-
-import lombok.Builder;
-import lombok.Data;
-
-import java.time.LocalDateTime;
-
-@Data
-@Builder
-public class AppointmentResponse {
-    private String id;
-    private String offeringName;
-    private String organizationName;
-    private String customerName;
-    private LocalDateTime appointmentDate;
-    private String status;
-    private Integer queuePosition;
-    private LocalDateTime createdAt;
-}

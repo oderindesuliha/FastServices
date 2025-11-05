@@ -113,7 +113,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private Customer getAuthenticatedCustomer() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null || !auth.isAuthenticated()) throw new RuntimeException("Unauthenticated access");
+        if(auth == null || !auth.isAuthenticated())
+            throw new RuntimeException("Unauthenticated access");
 
         var customer = (AuthenticatedPrincipal) auth.getPrincipal();
         if(customer.isOrganizationAccount()) throw new AccessDeniedException("Access not granted");
