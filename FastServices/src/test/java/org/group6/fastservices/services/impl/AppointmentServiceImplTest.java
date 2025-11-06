@@ -11,6 +11,8 @@ import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.AppointmentResponse;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.exceptions.AccountNotFoundException;
+import org.group6.fastservices.exceptions.OfferingNotFoundException;
+import org.group6.fastservices.exceptions.OrganizationNotFoundException;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,7 +91,17 @@ class AppointmentServiceImplTest {
         CreateAppointmentResponse response = createAppointment();
         assertTrue(response.isSuccess());
 
-        Offering offgering
+        Organization org = organizationRepository.findByCode("SEM001")
+                .orElseThrow(()-> new OrganizationNotFoundException("Organization not found"));
+
+        Offering offering = offeringRepository.findByOrganizationId(org.getId())
+                .stream()
+                .filter(service ->
+                        service.getName().equals("Native Registration"))
+                .findFirst()
+                .orElseThrow(()-> new OfferingNotFoundException("Offering not found"));
+
+        assertTrue(response.isSuccess());
     }
 
     private CreateAppointmentResponse createAppointment() {
