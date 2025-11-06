@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -80,24 +81,26 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentResponse> getAppointmentsByCustomerId(String customerId) {
-        return appointmentRepository.findByUserId(customerId);
+        return appointmentRepository.findByUserId(customerId)
+                .stream().map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
-    
+
     @Override
     public List<AppointmentResponse> getAppointmentsByOfferingId(String offeringId) {
         return appointmentRepository.findByOfferingId(offeringId);
     }
-    
+
     @Override
     public List<AppointmentResponse> getAppointmentsByQueueId(String queueId) {
         return appointmentRepository.findByQueueId(queueId);
     }
-    
+
     @Override
     public List<AppointmentResponse> getAllAppointments() {
         return appointmentRepository.findAll();
     }
-    
+
     @Override
     public AppointmentResponse updateAppointment(String id, AppointmentResponse appointment) {
         if (appointmentRepository.existsById(id)) {
@@ -106,7 +109,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         throw new ResourceNotFoundException("Appointment not found with id: " + id);
     }
-    
+
     @Override
     public void deleteAppointment(String id) {
         appointmentRepository.deleteById(id);

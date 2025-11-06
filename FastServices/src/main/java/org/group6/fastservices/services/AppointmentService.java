@@ -19,20 +19,7 @@ public interface AppointmentService {
 }
 
 
-// ------------------ READ ------------------
-//@Override
-//public AppointmentResponse getAppointmentById(String id) {
-//    Appointment appointment = appointmentRepository.findById(id)
-//            .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
-//    return mapToDto(appointment);
-//}
 
-//@Override
-//public List<AppointmentResponse> getAppointmentsByCustomerId(String customerId) {
-//    return appointmentRepository.findByUserId(customerId)
-//            .stream().map(this::mapToDto).collect(Collectors.toList());
-//}
-//
 //@Override
 //public List<AppointmentResponse> getAppointmentsByOfferingId(String offeringId) {
 //    return appointmentRepository.findByOfferingId(offeringId)
