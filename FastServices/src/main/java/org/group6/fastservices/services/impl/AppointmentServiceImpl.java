@@ -114,8 +114,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(()-> new AppointmentNotFoundException("Appointment not found"));
 
-        appointment.setAppointmentDate(request.g);
-        throw new ResourceNotFoundException("Appointment not found with id: " + id);
+        appointment.setAppointmentDate(request.getAppointmentDate());
+        appointment.setStatus(request.getStatus());
+        appointment.setUpdatedAt(LocalDateTime.now());
+
+        Appointment updatedAppointment = appointmentRepository.save(appointment);
+        return mapToResponse(updatedAppointment);
     }
 
     @Override
