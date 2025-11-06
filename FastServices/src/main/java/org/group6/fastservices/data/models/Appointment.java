@@ -7,34 +7,37 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
-@Getter
 @Setter
-@Table(name = "queues")
-public class Queue {
+@Getter
+@Entity
+@Table(name = "appointments")
+public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private String name;
-    private String description;
-    
     @ManyToOne
-    @JoinColumn(name = "organization_id")
-    private Organization organization;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @OneToOne
-    @JoinColumn(name = "offering_id")
+    @ManyToOne
+    @JoinColumn(name = "offering_id", nullable = false)
     private Offering offering;
+
+    @ManyToOne
+    @JoinColumn(name = "queue_id")
+    private Queue queue;
+
+    private LocalDateTime appointmentDate;
+
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatus status;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Appointment> appointments = new ArrayList<>();
+    
+    private int queuePosition;
 }

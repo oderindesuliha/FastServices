@@ -47,7 +47,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Queue queue = queueService.getQueueById(queueResponse.getId());
         int nextPosition = appointmentRepository.countByQueueId(queue.getId()) + 1;
 
-        AppointmentResponse appointment = new AppointmentResponse();
+        Appointment appointment = new Appointment();
         appointment.setAppointmentDate(request.getAppointmentDate());
         appointment.setUser(customer);
         appointment.setOffering(offering);
