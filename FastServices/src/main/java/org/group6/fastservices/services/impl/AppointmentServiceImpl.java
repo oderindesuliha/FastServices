@@ -95,7 +95,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentResponse> getAppointmentsByQueueId(String queueId) {
-        return appointmentRepository.findByQueueId(queueId);
+        return appointmentRepository.findByQueueId(queueId)
+                .stream().map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
