@@ -17,19 +17,4 @@ public interface AppointmentService {
     List<AppointmentResponse> getAllAppointments();
     AppointmentResponse updateAppointment(String id, UpdateAppointmentRequest request);
     GenericResponse deleteAppointment(String id);
-
 }
-
-//
-//// ------------------ UPDATE ------------------
-//@Override
-//public AppointmentResponse updateAppointment(String id, UpdateAppointmentRequest request) {
-//    Appointment appointment = appointmentRepository.findById(id)
-//            .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
-//
-//    appointment.setAppointmentDate(request.getAppointmentDate());
-//    appointment.setStatus(request.getStatus());
-//    appointment.setUpdatedAt(LocalDateTime.now());
-//
-//    Appointment updated = appointmentRepository.save(appointment);
-//    return mapToDto(updated);
