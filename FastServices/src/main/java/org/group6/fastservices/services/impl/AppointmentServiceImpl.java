@@ -135,7 +135,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .appointmentDate(appointment.getAppointmentDate())
                 .status(appointment.getStatus().name())
                 .queuePosition(appointment.getQueuePosition())
-                .createdAt()
-                .build()
+                .createdAt(appointment.getCreatedAt())
+                .build();
     }
 }
