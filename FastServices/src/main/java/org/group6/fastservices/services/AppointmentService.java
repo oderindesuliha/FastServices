@@ -1,5 +1,6 @@
 package org.group6.fastservices.services;
 
+import org.group6.fastservices.dtos.requests.UpdateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.AppointmentResponse;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
@@ -14,7 +15,7 @@ public interface AppointmentService {
     List<AppointmentResponse> getAppointmentsByOfferingId(String offeringId);
     List<AppointmentResponse> getAppointmentsByQueueId(String queueId);
     List<AppointmentResponse> getAllAppointments();
-    AppointmentResponse updateAppointment(String id, AppointmentResponse appointment);
+    AppointmentResponse updateAppointment(String id, UpdateAppointmentRequest request);
     GenericResponse deleteAppointment(String id);
 
 }
