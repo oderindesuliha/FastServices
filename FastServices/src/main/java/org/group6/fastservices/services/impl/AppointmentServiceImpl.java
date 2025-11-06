@@ -88,7 +88,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentResponse> getAppointmentsByOfferingId(String offeringId) {
-        return appointmentRepository.findByOfferingId(offeringId);
+        return appointmentRepository.findByOfferingId(offeringId)
+                .stream().map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
