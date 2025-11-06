@@ -17,6 +17,6 @@ public class AppointmentResponse {
     private String customerName;
     private LocalDateTime appointmentDate;
     private String status;
-    private String queuePosition;
+    private int queuePosition;
     private LocalDateTime createdAt;
 }

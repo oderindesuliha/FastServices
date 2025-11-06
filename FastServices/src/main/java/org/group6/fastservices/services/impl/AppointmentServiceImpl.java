@@ -129,6 +129,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     private AppointmentResponse mapToResponse(Appointment appointment) {
         return AppointmentResponse.builder()
                 .id(appointment.getId())
-                .offeringName()
+                .offeringName(appointment.getOffering().getName())
+                .organizationName(appointment.getOffering().getOrganization().getName())
+                .customerName(appointment.getUser().getFirstName())
+                .appointmentDate(appointment.getAppointmentDate())
+                .status(appointment.getStatus().name())
+                .queuePosition(appointment.getQueuePosition())
+                .createdAt()
+                .build()
     }
 }
