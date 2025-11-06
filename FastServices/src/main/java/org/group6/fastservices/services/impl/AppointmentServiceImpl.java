@@ -8,6 +8,7 @@ import org.group6.fastservices.dtos.requests.CreateQueueRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.dtos.responses.AppointmentResponse;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
+import org.group6.fastservices.dtos.responses.GenericResponse;
 import org.group6.fastservices.exceptions.*;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.group6.fastservices.services.AppointmentService;
@@ -117,8 +118,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void deleteAppointment(String id) {
-        appointmentRepository.deleteById(id);
+    public GenericResponse deleteAppointment(String id) {
+        Appointment appointment = appointmentRepository.findById(id)
+                        .orElseThrow(()-> new AppointmentNotFoundException("Appointment not found"));
+
+        appointmentRepository.delete(appointment);
+        return new GenericResponse("Appointment deleted successfully", true);
     }
 
     private Customer getAuthenticatedCustomer() {
