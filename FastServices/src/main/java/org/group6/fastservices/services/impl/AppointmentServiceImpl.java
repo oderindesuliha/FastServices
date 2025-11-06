@@ -102,7 +102,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentResponse> getAllAppointments() {
-        return appointmentRepository.findAll();
+        return appointmentRepository.findAll()
+                .stream().map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     @Override

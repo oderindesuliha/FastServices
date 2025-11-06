@@ -20,23 +20,6 @@ public interface AppointmentService {
 
 
 
-//@Override
-//public List<AppointmentResponse> getAppointmentsByOfferingId(String offeringId) {
-//    return appointmentRepository.findByOfferingId(offeringId)
-//            .stream().map(this::mapToDto).collect(Collectors.toList());
-//}
-//
-//@Override
-//public List<AppointmentResponse> getAppointmentsByQueueId(String queueId) {
-//    return appointmentRepository.findByQueueId(queueId)
-//            .stream().map(this::mapToDto).collect(Collectors.toList());
-//}
-
-//@Override
-//public List<AppointmentResponse> getAllAppointments() {
-//    return appointmentRepository.findAll()
-//            .stream().map(this::mapToDto).collect(Collectors.toList());
-//}
 //
 //// ------------------ UPDATE ------------------
 //@Override
