@@ -8,6 +8,7 @@ import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.data.repositories.OfferingRepository;
 import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
+import org.group6.fastservices.dtos.responses.AppointmentResponse;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.junit.jupiter.api.AfterEach;
@@ -65,6 +66,9 @@ class AppointmentServiceImplTest {
     void testCanGetAppointmentById() {
         CreateAppointmentResponse response = createAppointment();
         assertTrue(response.isSuccess());
+
+        AppointmentResponse appointmentResponse = appointmentService.getAppointmentById(response.getId());
+        assertEquals("Native Registration", appointmentResponse.getOfferingName());
     }
 
     private CreateAppointmentResponse createAppointment() {
