@@ -56,7 +56,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setCreatedAt(LocalDateTime.now());
         appointment.setQueuePosition(nextPosition);
 
-        AppointmentResponse savedAppointment = appointmentRepository.save(appointment);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
 
         return CreateAppointmentResponse.builder()
                 .id(savedAppointment.getId())
@@ -125,7 +125,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
     }
 
-    private AppointmentResponse mapToResponse(AppointmentResponse appointment) {
+    private AppointmentResponse mapToResponse(Appointment appointment) {
         return AppointmentResponse.builder()
                 .id(appointment.getId())
                 .offeringName(appointment.getOffering().getName())
