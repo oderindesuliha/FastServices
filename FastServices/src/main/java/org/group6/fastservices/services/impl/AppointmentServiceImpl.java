@@ -112,10 +112,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public AppointmentResponse updateAppointment(String id, AppointmentResponse appointment) {
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(()-> new AppointmentNotFoundException("Appointment not found"));
-        if (appointmentRepository.existsById(id)) {
-            appointment.setId(id);
-            return appointmentRepository.save(appointment);
-        }
+
+        appointment.setAppointmentDate(re);
         throw new ResourceNotFoundException("Appointment not found with id: " + id);
     }
 
