@@ -10,6 +10,7 @@ import org.group6.fastservices.data.repositories.OrganizationRepository;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.AppointmentResponse;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
+import org.group6.fastservices.exceptions.AccountNotFoundException;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,8 +69,19 @@ class AppointmentServiceImplTest {
         CreateAppointmentResponse response = createAppointment();
         assertTrue(response.isSuccess());
 
-        AppointmentResponse appointmentResponse = appointmentService.getAppointmentById(response.getId());
-        assertEquals("Native Registration", appointmentResponse.getOfferingName());
+        AppointmentResponse appointment = appointmentService.getAppointmentById(response.getId());
+        assertEquals("Native Registration", appointment.getOfferingName());
+    }
+
+    @Test
+    void testCanGetAppointmentsForCustomer() {
+        CreateAppointmentResponse response = createAppointment();
+        assertTrue(response.isSuccess());
+
+        Customer customer = customerRepository.findCustomerByEmail("customer@mail.com")
+                .orElseThrow(() -> new AccountNotFoundException("Customer not found"));
+        List<AppointmentResponse> appointments = appointmentService.getAppointmentsByCustomerId(customer.getId());
+        assertEquals(1, appointments.size());
     }
 
     private CreateAppointmentResponse createAppointment() {
