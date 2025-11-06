@@ -5,6 +5,7 @@ import org.group6.fastservices.data.models.*;
 import org.group6.fastservices.data.repositories.*;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
+import org.group6.fastservices.dtos.responses.AppointmentResponse;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
 import org.group6.fastservices.exceptions.*;
@@ -72,9 +73,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public Appointment getAppointmentById(String id) {
-        Optional<Appointment> appointment = appointmentRepository.findById(id);
-        return appointment.orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
+    public AppointmentResponse getAppointmentById(String id) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
+        return mapToResponse(appointment);
     }
     
     @Override
