@@ -73,7 +73,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentResponse getAppointmentById(String id) {
-        AppointmentResponse appointment = appointmentRepository.findById(id)
+        Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
         return mapToResponse(appointment);
     }
