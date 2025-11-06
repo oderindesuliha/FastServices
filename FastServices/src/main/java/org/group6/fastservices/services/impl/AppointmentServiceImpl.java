@@ -78,7 +78,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
         return mapToResponse(appointment);
     }
-    
+
     @Override
     public List<Appointment> getAppointmentsByCustomerId(String customerId) {
         return appointmentRepository.findByUserId(customerId);
@@ -124,5 +124,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         return customerRepository.findCustomerByEmail(customer.getUsername())
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
+    }
+
+    private AppointmentResponse mapToResponse(Appointment appointment) {
+        return AppointmentResponse.builer
     }
 }
