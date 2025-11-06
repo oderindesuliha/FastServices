@@ -101,7 +101,8 @@ class AppointmentServiceImplTest {
                 .findFirst()
                 .orElseThrow(()-> new OfferingNotFoundException("Offering not found"));
 
-        assertTrue(response.isSuccess());
+        List<AppointmentResponse> appointments = appointmentService.getAppointmentsByOfferingId(offering.getId());
+        assertEquals(1, appointments.size());
     }
 
     private CreateAppointmentResponse createAppointment() {
