@@ -74,7 +74,7 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    void testCanGetAppointmentsForCustomer() {
+    void testCanGetAllAppointmentsForCustomer() {
         CreateAppointmentResponse response = createAppointment();
         assertTrue(response.isSuccess());
 
@@ -82,6 +82,14 @@ class AppointmentServiceImplTest {
                 .orElseThrow(() -> new AccountNotFoundException("Customer not found"));
         List<AppointmentResponse> appointments = appointmentService.getAppointmentsByCustomerId(customer.getId());
         assertEquals(1, appointments.size());
+    }
+
+    @Test
+    void testCanGetAllAppointmentsForService() {
+        CreateAppointmentResponse response = createAppointment();
+        assertTrue(response.isSuccess());
+
+        Offering offgering
     }
 
     private CreateAppointmentResponse createAppointment() {
