@@ -3,6 +3,7 @@ package org.group6.fastservices.services.impl;
 import org.group6.fastservices.data.models.Customer;
 import org.group6.fastservices.data.models.Offering;
 import org.group6.fastservices.data.models.Organization;
+import org.group6.fastservices.data.models.Queue;
 import org.group6.fastservices.data.repositories.AppointmentRepository;
 import org.group6.fastservices.data.repositories.CustomerRepository;
 import org.group6.fastservices.data.repositories.OfferingRepository;
@@ -102,6 +103,25 @@ class AppointmentServiceImplTest {
                 .orElseThrow(()-> new OfferingNotFoundException("Offering not found"));
 
         List<AppointmentResponse> appointments = appointmentService.getAppointmentsByOfferingId(offering.getId());
+        assertEquals(1, appointments.size());
+    }
+
+    @Test
+    void testCanGetAllAppointmentsForServiceWithQueue() {
+        CreateAppointmentResponse response = createAppointment();
+        assertTrue(response.isSuccess());
+        Organization org = organizationRepository.findByCode("SEM001")
+                .orElseThrow(()-> new OrganizationNotFoundException("Organization not found"));
+
+        Offering offering = offeringRepository.findByOrganizationId(org.getId())
+                .stream()
+                .filter(service ->
+                        service.getName().equals("Native Registration"))
+                .findFirst()
+                .orElseThrow(()-> new OfferingNotFoundException("Offering not found"));
+
+        Queue queue = offering.getQueue();
+        List<AppointmentResponse> appointments = appointmentService.getAppointmentsByQueueId(queue.getId());
         assertEquals(1, appointments.size());
     }
 
