@@ -77,16 +77,3 @@ public interface AppointmentService {
 //    return new GenericResponse(true, "Appointment deleted successfully");
 //}
 
-// ------------------ HELPER METHODS ------------------
-//private AppointmentResponse mapToDto(Appointment appointment) {
-//    return AppointmentResponse.builder()
-//            .id(appointment.getId())
-//            .offeringName(appointment.getOffering().getName())
-//            .organizationName(appointment.getOffering().getOrganization().getName())
-//            .customerName(appointment.getUser().getFullName())
-//            .appointmentDate(appointment.getAppointmentDate())
-//            .status(appointment.getStatus())
-//            .queuePosition(appointment.getQueuePosition())
-//            .createdAt(appointment.getCreatedAt())
-//            .build();
-//}
