@@ -37,5 +37,5 @@ public class Offering {
     private LocalDateTime updatedAt;
     
     @OneToMany(mappedBy = "offering", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Appointment> appointments = new ArrayList<>();
+    private List<AppointmentResponse> appointments = new ArrayList<>();
 }

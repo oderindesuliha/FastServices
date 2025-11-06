@@ -1,8 +1,7 @@
 package org.group6.fastservices.services;
 
-import org.group6.fastservices.data.models.Appointment;
-import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.AppointmentResponse;
+import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
 
 import java.util.List;
@@ -10,11 +9,11 @@ import java.util.List;
 public interface AppointmentService {
     CreateAppointmentResponse createAppointment(CreateAppointmentRequest request);
     AppointmentResponse getAppointmentById(String id);
-    List<Appointment> getAppointmentsByCustomerId(String customerId);
-    List<Appointment> getAppointmentsByOfferingId(String offeringId);
-    List<Appointment> getAppointmentsByQueueId(String queueId);
-    List<Appointment> getAllAppointments();
-    Appointment updateAppointment(String id, Appointment appointment);
+    List<AppointmentResponse> getAppointmentsByCustomerId(String customerId);
+    List<AppointmentResponse> getAppointmentsByOfferingId(String offeringId);
+    List<AppointmentResponse> getAppointmentsByQueueId(String queueId);
+    List<AppointmentResponse> getAllAppointments();
+    AppointmentResponse updateAppointment(String id, AppointmentResponse appointment);
     void deleteAppointment(String id);
 
 }

@@ -5,8 +5,8 @@ import org.group6.fastservices.data.models.*;
 import org.group6.fastservices.data.repositories.*;
 import org.group6.fastservices.dtos.requests.CreateAppointmentRequest;
 import org.group6.fastservices.dtos.requests.CreateQueueRequest;
-import org.group6.fastservices.dtos.responses.AppointmentResponse;
 import org.group6.fastservices.dtos.responses.CreateAppointmentResponse;
+import org.group6.fastservices.dtos.responses.AppointmentResponse;
 import org.group6.fastservices.dtos.responses.CreateQueueResponse;
 import org.group6.fastservices.exceptions.*;
 import org.group6.fastservices.security.AuthenticatedPrincipal;
@@ -47,7 +47,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Queue queue = queueService.getQueueById(queueResponse.getId());
         int nextPosition = appointmentRepository.countByQueueId(queue.getId()) + 1;
 
-        Appointment appointment = new Appointment();
+        AppointmentResponse appointment = new AppointmentResponse();
         appointment.setAppointmentDate(request.getAppointmentDate());
         appointment.setUser(customer);
         appointment.setOffering(offering);
@@ -56,7 +56,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setCreatedAt(LocalDateTime.now());
         appointment.setQueuePosition(nextPosition);
 
-        Appointment savedAppointment = appointmentRepository.save(appointment);
+        AppointmentResponse savedAppointment = appointmentRepository.save(appointment);
 
         return CreateAppointmentResponse.builder()
                 .id(savedAppointment.getId())
@@ -73,33 +73,33 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentResponse getAppointmentById(String id) {
-        Appointment appointment = appointmentRepository.findById(id)
+        AppointmentResponse appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id: " + id));
         return mapToResponse(appointment);
     }
 
     @Override
-    public List<Appointment> getAppointmentsByCustomerId(String customerId) {
+    public List<AppointmentResponse> getAppointmentsByCustomerId(String customerId) {
         return appointmentRepository.findByUserId(customerId);
     }
     
     @Override
-    public List<Appointment> getAppointmentsByOfferingId(String offeringId) {
+    public List<AppointmentResponse> getAppointmentsByOfferingId(String offeringId) {
         return appointmentRepository.findByOfferingId(offeringId);
     }
     
     @Override
-    public List<Appointment> getAppointmentsByQueueId(String queueId) {
+    public List<AppointmentResponse> getAppointmentsByQueueId(String queueId) {
         return appointmentRepository.findByQueueId(queueId);
     }
     
     @Override
-    public List<Appointment> getAllAppointments() {
+    public List<AppointmentResponse> getAllAppointments() {
         return appointmentRepository.findAll();
     }
     
     @Override
-    public Appointment updateAppointment(String id, Appointment appointment) {
+    public AppointmentResponse updateAppointment(String id, AppointmentResponse appointment) {
         if (appointmentRepository.existsById(id)) {
             appointment.setId(id);
             return appointmentRepository.save(appointment);
@@ -125,7 +125,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(()-> new AccountNotFoundException("Authenticated customer not found"));
     }
 
-    private AppointmentResponse mapToResponse(Appointment appointment) {
+    private AppointmentResponse mapToResponse(AppointmentResponse appointment) {
         return AppointmentResponse.builder()
                 .id(appointment.getId())
                 .offeringName(appointment.getOffering().getName())

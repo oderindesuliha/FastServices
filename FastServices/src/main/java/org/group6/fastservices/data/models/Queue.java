@@ -36,5 +36,5 @@ public class Queue {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Appointment> appointments = new ArrayList<>();
+    private List<AppointmentResponse> appointments = new ArrayList<>();
 }
