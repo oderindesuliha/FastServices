@@ -127,6 +127,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     private AppointmentResponse mapToResponse(Appointment appointment) {
-        return AppointmentResponse.builer
+        return AppointmentResponse.builder()
+                .id(appointment.getId())
+                .offeringName()
     }
 }

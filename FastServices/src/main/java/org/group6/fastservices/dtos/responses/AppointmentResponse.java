@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class AppointmentResponse {
 
     private String id;
-    private String OfferingName;
+    private String offeringName;
     private String organizationName;
     private String customerName;
     private LocalDateTime appointmentDate;
